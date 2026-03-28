@@ -9,213 +9,489 @@
     <title>Klinip | Acceso anticipado</title>
     <meta
       name="description"
-      content="Klinip organiza la salud de tu familia con IA, seguimiento colaborativo y Klinip Voice. Únete a la lista de espera o reserva acceso anticipado."
+      content="Klinip organiza tu salud y la de tu familia con IA, documentos, recordatorios y Klinip Voice. &Uacute;nete a la lista de espera o reserva acceso anticipado."
     />
-    <meta name="theme-color" content="#0d1021" />
+    <meta name="theme-color" content="#eff5ff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="lp-shell">
-      <header class="lp-header">
-        <a class="lp-brand" href="#inicio" aria-label="Klinip">
-          <span class="lp-brand-mark">K</span>
-          <span class="lp-brand-word">Klinip</span>
-        </a>
-        <nav class="lp-nav" aria-label="Principal">
-          <a href="#beneficios">Beneficios</a>
-          <a href="#planes">Planes</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-        <div class="lp-actions">
-          <button class="lp-theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema">
-            <span>Tema</span>
-          </button>
-          <a class="lp-link-app" data-app-link href="https://www.klinip.cl">Ir a la app</a>
+    <div class="lp-page">
+      <header class="lp-navbar">
+        <div class="lp-navbar-inner">
+          <a class="lp-nav-logo" href="#inicio" aria-label="Klinip">
+            <span class="lp-nav-logo-mark">K</span>
+            <span class="lp-nav-logo-name">Klinip</span>
+          </a>
+
+          <nav class="lp-nav-links" aria-label="Principal">
+            <button type="button" class="lp-nav-link active" data-scroll-target="beneficios">Beneficios</button>
+            <button type="button" class="lp-nav-link" data-scroll-target="planes">Planes</button>
+            <button type="button" class="lp-nav-link" data-scroll-target="empresas">Empresas</button>
+            <button type="button" class="lp-nav-link" data-scroll-target="faq">FAQ</button>
+          </nav>
+
+          <div class="lp-nav-right">
+            <button
+              type="button"
+              class="theme-toggle lp-theme-toggle"
+              data-theme-toggle
+              aria-label="Cambiar tema"
+              aria-pressed="false"
+            >
+              <span class="theme-toggle-label">Tema</span>
+              <span class="theme-switch"><span class="theme-switch-thumb"></span></span>
+            </button>
+            <a class="lp-btn-ghost" data-app-link href="https://www.klinip.cl">Ir a la app</a>
+          </div>
         </div>
       </header>
 
-      <main id="inicio">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Acceso anticipado Klinip</p>
-            <h1>Ordena la salud de tu familia en un solo lugar.</h1>
-            <p class="hero-summary">
-              Klinip reúne recordatorios, documentos, seguimiento familiar y Klinip Voice
-              para convertir cada atención en información clara y accionable.
+      <section id="inicio" class="lp-hero">
+        <div class="lp-hero-inner">
+          <div class="lp-hero-left">
+            <div class="lp-section-eyebrow">Acceso anticipado Klinip</div>
+
+            <h1 class="lp-hero-title">
+              Ordena la salud
+              <span>de tu familia en un solo lugar</span>
+            </h1>
+
+            <p class="lp-hero-desc">
+              Klinip re&uacute;ne recordatorios, documentos, seguimiento familiar y
+              <strong>Klinip Voice</strong> para convertir cada atenci&oacute;n en informaci&oacute;n
+              clara y accionable.
             </p>
-            <div class="hero-cta">
-              <a class="btn btn-primary" data-waitlist-link href="#planes">Unirme a la lista de espera</a>
-              <a class="btn btn-secondary" data-payment-link href="#planes">Reservar acceso anticipado</a>
-            </div>
-            <ul class="hero-points">
-              <li>Resumen clínico en lenguaje simple</li>
-              <li>Compartido familiar con permisos</li>
-              <li>Audio protegido con Klinip Voice</li>
-            </ul>
-          </div>
 
-          <aside class="hero-panel" aria-label="Vista previa de Klinip">
-            <div class="hero-card hero-card-main">
-              <div class="hero-card-top">
-                <span class="hero-badge">Klinip Voice</span>
-                <span class="hero-pill">Nuevo</span>
+            <div class="lp-hero-actions">
+              <a class="lp-btn-hero" data-waitlist-link href="#lista-espera">Unirme a la lista de espera</a>
+              <a class="lp-btn-secondary" data-payment-link href="#planes">Reservar acceso anticipado</a>
+            </div>
+
+            <div class="lp-hero-stats">
+              <div class="lp-hero-stat">
+                <strong>Klinip Voice</strong>
+                <span>Resumen en lenguaje simple</span>
               </div>
-              <h2>Tu consulta, explicada en simple.</h2>
-              <p>
-                Convierte una atención médica en un resumen entendible, indicaciones útiles y
-                opciones seguras para compartir con familia autorizada.
-              </p>
-            </div>
-
-            <div class="hero-grid">
-              <article class="hero-metric">
-                <strong>IA clínica</strong>
-                <span>Detecta hitos, alertas y seguimientos.</span>
-              </article>
-              <article class="hero-metric">
-                <strong>Documentos</strong>
-                <span>Resultados, recetas y órdenes en un mismo historial.</span>
-              </article>
-              <article class="hero-metric">
-                <strong>Familia</strong>
-                <span>Accesos por perfil y compartidos controlados.</span>
-              </article>
-              <article class="hero-metric">
+              <div class="lp-hero-stat">
+                <strong>Compartido familiar</strong>
+                <span>Permisos y contexto por perfil</span>
+              </div>
+              <div class="lp-hero-stat">
                 <strong>Recordatorios</strong>
-                <span>Citas, exámenes y medicamentos sincronizados.</span>
+                <span>Citas, ex&aacute;menes y medicamentos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lp-hero-right">
+            <div class="lp-hero-mockup">
+              <div class="lp-mockup-bar">
+                <span class="lp-mockup-tag is-voice">Klinip Voice</span>
+                <span class="lp-mockup-tag is-new">Nuevo</span>
+              </div>
+
+              <div class="lp-mockup-body">
+                <h2>Tu consulta, explicada en simple.</h2>
+                <p>
+                  Convierte una atenci&oacute;n m&eacute;dica en un resumen entendible,
+                  indicaciones &uacute;tiles y opciones seguras para compartir con familia
+                  autorizada.
+                </p>
+              </div>
+            </div>
+
+            <div class="lp-feature-grid lp-feature-grid-compact">
+              <article class="lp-feature-card">
+                <h3>IA cl&iacute;nica</h3>
+                <p>Detecta hitos, alertas y seguimientos.</p>
+              </article>
+              <article class="lp-feature-card">
+                <h3>Documentos</h3>
+                <p>Resultados, recetas y &oacute;rdenes en un mismo historial.</p>
               </article>
             </div>
-          </aside>
-        </section>
-
-        <section class="proof-strip" aria-label="Indicadores">
-          <article>
-            <strong>Todo en un perfil</strong>
-            <span>Citas, documentos, tratamientos y contexto familiar.</span>
-          </article>
-          <article>
-            <strong>Privacidad primero</strong>
-            <span>El usuario controla con quién comparte cada atención.</span>
-          </article>
-          <article>
-            <strong>Diseñado para Chile</strong>
-            <span>Flujo pensado para pacientes, cuidadores y profesionales.</span>
-          </article>
-        </section>
-
-        <section id="beneficios" class="section">
-          <div class="section-heading">
-            <p class="eyebrow">Por qué Klinip</p>
-            <h2>Menos desorden clínico, más continuidad real.</h2>
           </div>
+        </div>
+      </section>
 
-          <div class="benefit-grid">
-            <article class="benefit-card">
-              <h3>Klinip IA</h3>
-              <p>
-                Responde preguntas sobre documentos, tratamientos e historial con lenguaje claro.
-              </p>
-            </article>
-            <article class="benefit-card">
-              <h3>Klinip Voice</h3>
-              <p>
-                Resume una consulta grabada y deja trazabilidad útil para el paciente y su familia.
-              </p>
-            </article>
-            <article class="benefit-card">
-              <h3>Seguimiento familiar</h3>
-              <p>
-                Permite colaborar con cuidadores y familiares autorizados sin perder control.
-              </p>
-            </article>
-            <article class="benefit-card">
-              <h3>Recordatorios inteligentes</h3>
-              <p>
-                Centraliza medicamentos, citas y exámenes para reducir olvidos y atrasos.
-              </p>
-            </article>
-          </div>
-        </section>
+      <section id="beneficios" class="lp-section lp-section-surface">
+        <div class="lp-section-inner">
+          <div class="lp-section-eyebrow"><span></span>Beneficios<span></span></div>
+          <h2 class="lp-section-title">
+            La misma base de Klinip,
+            <em>ahora lista para acceso anticipado</em>
+          </h2>
+          <p class="lp-section-sub">
+            Una salida controlada para conocer el producto, dejar tus datos o reservar un cupo antes del lanzamiento amplio.
+          </p>
 
-        <section id="planes" class="section section-plans">
-          <div class="section-heading">
-            <p class="eyebrow">Acceso anticipado</p>
-            <h2>Elige cómo quieres entrar primero.</h2>
-            <p class="section-copy">
-              Puedes dejar tus datos para aviso de lanzamiento o asegurar acceso anticipado con pago.
-            </p>
-          </div>
-
-          <div class="plan-grid">
-            <article class="plan-card">
-              <p class="plan-kicker">Lista de espera</p>
-              <h3>Quiero conocer Klinip primero</h3>
-              <p>
-                Déjanos tu contacto y te avisamos cuando abramos nuevos cupos o demos de producto.
-              </p>
-              <a class="btn btn-primary btn-block" data-waitlist-link href="#">
-                Ir a lista de espera
-              </a>
-            </article>
-
-            <article class="plan-card plan-card-highlight">
-              <p class="plan-kicker">Reserva de acceso</p>
-              <h3>Quiero entrar antes del lanzamiento</h3>
-              <p>
-                Usa tu link de pago para reservar acceso anticipado a planes Plus o Familiar.
-              </p>
-              <div class="plan-actions">
-                <a class="btn btn-primary btn-block" data-plus-link href="#">Plan Plus</a>
-                <a class="btn btn-secondary btn-block" data-family-link href="#">Plan Familiar</a>
+          <div class="lp-feature-grid">
+            <article class="lp-feature-card">
+              <div class="lp-feature-line tone-blue"></div>
+              <div class="lp-feature-icon tone-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 8v4"></path>
+                  <circle cx="12" cy="16" r=".6" fill="currentColor"></circle>
+                </svg>
               </div>
+              <h3>Klinip IA</h3>
+              <p>Resuelve dudas sobre historial, tratamientos y documentos con lenguaje claro.</p>
+            </article>
+
+            <article class="lp-feature-card">
+              <div class="lp-feature-line tone-teal"></div>
+              <div class="lp-feature-icon tone-teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 3a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4Z"></path>
+                  <path d="M5 11a7 7 0 0 0 14 0"></path>
+                  <path d="M12 18v3"></path>
+                </svg>
+              </div>
+              <h3>Klinip Voice</h3>
+              <p>Registra una atenci&oacute;n y convi&eacute;rtela en resumen &uacute;til para paciente y familia.</p>
+            </article>
+
+            <article class="lp-feature-card">
+              <div class="lp-feature-line tone-amber"></div>
+              <div class="lp-feature-icon tone-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M4 6h16v12H4z"></path>
+                  <path d="M8 3v6"></path>
+                  <path d="M16 3v6"></path>
+                </svg>
+              </div>
+              <h3>Calendario y recordatorios</h3>
+              <p>Centraliza citas, ex&aacute;menes y medicamentos para no perder seguimiento.</p>
+            </article>
+
+            <article class="lp-feature-card">
+              <div class="lp-feature-line tone-violet"></div>
+              <div class="lp-feature-icon tone-violet">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M7 20a4 4 0 1 1 0-8 5 5 0 0 1 10 0 4 4 0 1 1 0 8Z"></path>
+                </svg>
+              </div>
+              <h3>Compartido familiar</h3>
+              <p>Permisos por perfil y visibilidad controlada para cuidadores y familia autorizada.</p>
             </article>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="faq" class="section section-faq">
-          <div class="section-heading">
-            <p class="eyebrow">Preguntas frecuentes</p>
-            <h2>Lo importante antes de entrar.</h2>
+      <section id="lista-espera" class="lp-section lp-section-surface">
+        <div class="lp-section-inner">
+          <div class="lp-section-eyebrow"><span></span>Lista de espera<span></span></div>
+          <h2 class="lp-section-title">
+            Cu&eacute;ntanos c&oacute;mo
+            <em>usar&iacute;as Klinip</em>
+          </h2>
+          <p class="lp-section-sub">
+            Este formulario nos ayuda a entender tu contexto, priorizar mejor el acceso anticipado y resaltar las capacidades de Klinip que m&aacute;s te sirven.
+          </p>
+
+          <div class="lp-lead-grid">
+            <div class="lp-lead-copy">
+              <div class="lp-lead-points">
+                <article class="lp-lead-point">
+                  <h3>Segmentaci&oacute;n real</h3>
+                  <p>Detectamos si buscas Klinip para uso personal, familiar o institucional.</p>
+                </article>
+                <article class="lp-lead-point">
+                  <h3>Dolor principal</h3>
+                  <p>Sabemos si tu problema hoy es ordenar documentos, entender indicaciones o coordinar a la familia.</p>
+                </article>
+                <article class="lp-lead-point">
+                  <h3>Inter&eacute;s por funciones</h3>
+                  <p>Priorizamos mejor si te atrae m&aacute;s Klinip Voice, IA cl&iacute;nica, recordatorios o compartido familiar.</p>
+                </article>
+              </div>
+            </div>
+
+            <form class="lp-lead-form" data-waitlist-form novalidate>
+              <div class="lp-form-grid">
+                <label class="lp-form-field">
+                  <span>Nombre</span>
+                  <input type="text" name="nombre" autocomplete="name" placeholder="Tu nombre" required />
+                </label>
+
+                <label class="lp-form-field">
+                  <span>Correo</span>
+                  <input type="email" name="correo" autocomplete="email" placeholder="tu@correo.com" required />
+                </label>
+
+                <label class="lp-form-field">
+                  <span>WhatsApp</span>
+                  <input type="tel" name="whatsapp" autocomplete="tel" placeholder="+56 9 ..." />
+                </label>
+
+                <label class="lp-form-field">
+                  <span>&iquest;Para qui&eacute;n usar&iacute;as Klinip?</span>
+                  <select name="uso_principal" required>
+                    <option value="">Selecciona una opci&oacute;n</option>
+                    <option value="personal">Para m&iacute;</option>
+                    <option value="familiar">Para mi familia</option>
+                    <option value="cuidador">Para alguien que cuido</option>
+                    <option value="empresa">Para un centro o equipo</option>
+                  </select>
+                </label>
+
+                <label class="lp-form-field">
+                  <span>&iquest;C&oacute;mo administras hoy tu informaci&oacute;n de salud?</span>
+                  <select name="gestion_actual" required>
+                    <option value="">Selecciona una opci&oacute;n</option>
+                    <option value="papel">Papel o cuadernos</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="archivos">Archivos sueltos</option>
+                    <option value="notas">Calendario, notas o recordatorios</option>
+                    <option value="desordenado">No la tengo ordenada</option>
+                  </select>
+                </label>
+
+                <label class="lp-form-field">
+                  <span>&iquest;Qu&eacute; te cuesta m&aacute;s hoy?</span>
+                  <select name="dolor_principal" required>
+                    <option value="">Selecciona una opci&oacute;n</option>
+                    <option value="recordatorios">Recordar controles, medicamentos o ex&aacute;menes</option>
+                    <option value="documentos">Ordenar documentos</option>
+                    <option value="indicaciones">Entender indicaciones m&eacute;dicas</option>
+                    <option value="familia">Compartir con familia o cuidadores</option>
+                    <option value="seguimiento">Hacer seguimiento de varias personas</option>
+                  </select>
+                </label>
+
+                <label class="lp-form-field">
+                  <span>&iquest;Qu&eacute; funci&oacute;n te interesa m&aacute;s?</span>
+                  <select name="funcion_interes" required>
+                    <option value="">Selecciona una opci&oacute;n</option>
+                    <option value="voice">Klinip Voice</option>
+                    <option value="recordatorios">Recordatorios</option>
+                    <option value="documentos">Documentos cl&iacute;nicos</option>
+                    <option value="familia">Compartido familiar</option>
+                    <option value="ia">IA para entender mi salud</option>
+                  </select>
+                </label>
+
+                <label class="lp-form-field">
+                  <span>&iquest;Qu&eacute; plan te interesa m&aacute;s?</span>
+                  <select name="plan_interes" required>
+                    <option value="">Selecciona una opci&oacute;n</option>
+                    <option value="gratis">Gratis</option>
+                    <option value="plus">Plus lanzamiento</option>
+                    <option value="familiar">Familiar lanzamiento</option>
+                    <option value="empresa">Empresas / demo comercial</option>
+                  </select>
+                </label>
+
+                <label class="lp-form-field lp-form-field-full">
+                  <span>&iquest;Hay algo que te gustar&iacute;a resolver con Klinip?</span>
+                  <textarea
+                    name="mensaje"
+                    rows="4"
+                    placeholder="Cu&eacute;ntanos brevemente tu caso o lo que hoy te cuesta ordenar."
+                  ></textarea>
+                </label>
+              </div>
+
+              <label class="lp-form-check">
+                <input type="checkbox" name="contacto_autorizado" required />
+                <span>Acepto que Klinip me contacte por correo o WhatsApp sobre acceso anticipado.</span>
+              </label>
+
+              <div class="lp-form-actions">
+                <button class="lp-btn-hero lp-form-submit" type="submit">Quiero entrar a la lista de espera</button>
+                <p class="lp-form-note">Klinip prioriza mejor el acceso anticipado seg&uacute;n tu uso, inter&eacute;s y contexto.</p>
+              </div>
+
+              <p class="lp-form-status" data-form-status aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="planes" class="lp-pricing-section">
+        <div class="lp-section-inner">
+          <div class="lp-section-eyebrow"><span></span>Acceso anticipado<span></span></div>
+          <h2 class="lp-section-title">
+            Elige tu plan de
+            <em>prelaunch Klinip</em>
+          </h2>
+          <p class="lp-section-sub">
+            El acceso anticipado combina precio de lanzamiento, entrada controlada y activaci&oacute;n manual para mantener una salida ordenada.
+          </p>
+
+          <div class="lp-pricing-note">
+            <strong>Prelaunch:</strong> precio de lanzamiento por tiempo limitado.
+            <span>Luego sube a precio normal al abrir el lanzamiento comercial.</span>
           </div>
 
-          <div class="faq-list">
+          <div class="lp-pricing-grid lp-pricing-grid-four">
+            <article class="lp-price-card">
+              <div class="lp-price-plan">Gratis</div>
+              <div class="lp-price-amount is-free">Gratis</div>
+              <div class="lp-price-period">1 perfil de salud</div>
+              <div class="lp-price-subtitle">
+                Ideal para conocer Klinip, probar la base del producto y entrar sin fricci&oacute;n.
+              </div>
+              <div class="lp-price-divider"></div>
+              <ul class="lp-price-features">
+                <li><span class="lp-price-check"></span> 1 perfil de salud</li>
+                <li><span class="lp-price-check"></span> Recordatorios y documentos esenciales</li>
+                <li><span class="lp-price-check"></span> Historial b&aacute;sico</li>
+                <li><span class="lp-price-check"></span> Klinip Voice demo o uso muy limitado</li>
+              </ul>
+              <div class="lp-price-meta">Sin pago. Entrada por lista de espera.</div>
+              <a class="lp-price-btn-primary" data-waitlist-link href="#lista-espera">Solicitar acceso gratis</a>
+            </article>
+
+            <article class="lp-price-card is-featured">
+              <span class="lp-price-rec">Precio de lanzamiento</span>
+              <div class="lp-price-plan">Klinip Plus</div>
+              <div class="lp-price-amount">CLP 4.990</div>
+              <div class="lp-price-period">mensual o CLP 49.900/a&ntilde;o</div>
+              <div class="lp-price-subtitle">
+                Para organizar tu salud con IA, Klinip Voice y una experiencia completa para una sola persona.
+              </div>
+              <div class="lp-price-divider"></div>
+              <ul class="lp-price-features">
+                <li><span class="lp-price-check"></span> 1 perfil principal</li>
+                <li><span class="lp-price-check"></span> Res&uacute;menes con IA y lenguaje simple</li>
+                <li><span class="lp-price-check"></span> Klinip Voice con uso razonable</li>
+                <li><span class="lp-price-check"></span> Precio normal luego: CLP 6.990/mes o 69.900/a&ntilde;o</li>
+              </ul>
+              <div class="lp-price-meta">Precio promocional no transferible durante esta etapa.</div>
+              <a class="lp-price-btn-primary" data-plus-link href="#">Reservar Plus lanzamiento</a>
+            </article>
+
+            <article class="lp-price-card">
+              <span class="lp-price-rec lp-price-rec-soft">Precio de lanzamiento</span>
+              <div class="lp-price-plan">Klinip Familiar</div>
+              <div class="lp-price-amount">CLP 11.990</div>
+              <div class="lp-price-period">mensual o CLP 119.900/a&ntilde;o</div>
+              <div class="lp-price-subtitle">
+                Para familias, cuidadores y hogares que necesitan ordenar varios perfiles en un mismo lugar.
+              </div>
+              <div class="lp-price-divider"></div>
+              <ul class="lp-price-features">
+                <li><span class="lp-price-check"></span> Hasta 5 perfiles de salud</li>
+                <li><span class="lp-price-check"></span> Compartido familiar autorizado</li>
+                <li><span class="lp-price-check"></span> Audio + resumen simple compartido</li>
+                <li><span class="lp-price-check"></span> Precio normal luego: CLP 14.990/mes o 149.900/a&ntilde;o</li>
+              </ul>
+              <div class="lp-price-meta">Automatizaci&oacute;n por perfil incluida.</div>
+              <a class="lp-price-btn-primary" data-family-link href="#">Reservar Familiar lanzamiento</a>
+            </article>
+
+            <article id="empresas" class="lp-price-card">
+              <span class="lp-price-rec lp-price-rec-business">B2B</span>
+              <div class="lp-price-plan">Empresas y centros</div>
+              <div class="lp-price-amount">Cotizaci&oacute;n</div>
+              <div class="lp-price-period">CESFAM, hospitales, cl&iacute;nicas y centros</div>
+              <div class="lp-price-subtitle">
+                Para instituciones que necesitan administraci&oacute;n, m&uacute;ltiples profesionales y operaci&oacute;n con mayor control.
+              </div>
+              <div class="lp-price-divider"></div>
+              <ul class="lp-price-features">
+                <li><span class="lp-price-check"></span> Panel administrador y reportes</li>
+                <li><span class="lp-price-check"></span> Roles, permisos y operaci&oacute;n por equipo</li>
+                <li><span class="lp-price-check"></span> Onboarding y acompa&ntilde;amiento comercial</li>
+                <li><span class="lp-price-check"></span> Alcance, precio y soporte a medida</li>
+              </ul>
+              <div class="lp-price-meta">Evaluaci&oacute;n comercial seg&uacute;n volumen y flujo.</div>
+              <a class="lp-price-btn-ghost" data-enterprise-link href="#">Solicitar demo comercial</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section lp-section-surface">
+        <div class="lp-section-inner">
+          <div class="lp-section-eyebrow"><span></span>Reglas de plan<span></span></div>
+          <h2 class="lp-section-title">
+            L&iacute;mites claros para una
+            <em>salida ordenada y sana</em>
+          </h2>
+          <p class="lp-section-sub">
+            El prelaunch mantiene activaci&oacute;n controlada para evitar abuso, proteger capacidad operativa y asegurar que cada plan se use como corresponde.
+          </p>
+
+          <div class="lp-feature-grid lp-rules-grid">
+            <article class="lp-feature-card">
+              <h3>Gratis</h3>
+              <p>1 perfil y acceso base. Sin automatizaciones ni compartido familiar avanzado.</p>
+            </article>
+            <article class="lp-feature-card">
+              <h3>Plus</h3>
+              <p>Experiencia premium individual. No reemplaza al plan Familiar ni habilita m&uacute;ltiples perfiles completos.</p>
+            </article>
+            <article class="lp-feature-card">
+              <h3>Familiar</h3>
+              <p>Hasta 5 perfiles, permisos por perfil y compartido solo con integrantes autorizados.</p>
+            </article>
+            <article class="lp-feature-card">
+              <h3>Lanzamiento</h3>
+              <p>Precio no transferible, no acumulable y v&aacute;lido solo dentro de la ventana de prelaunch.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="lp-cta-section">
+        <div class="lp-cta-inner">
+          <div class="lp-cta-eyebrow">Preguntas frecuentes</div>
+          <h2>Lo importante antes de <em>entrar a Klinip</em></h2>
+          <div class="lp-faq-list">
             <details>
-              <summary>¿La app ya está abierta a todo público?</summary>
+              <summary>&iquest;La app ya est&aacute; abierta a todo p&uacute;blico?</summary>
               <p>No. Esta etapa es de pre-lanzamiento, lista de espera y acceso anticipado controlado.</p>
             </details>
             <details>
-              <summary>¿La familia ve todo automáticamente?</summary>
+              <summary>&iquest;Klinip Voice reemplaza al profesional?</summary>
+              <p>No. Ayuda a registrar y explicar mejor una atenci&oacute;n, pero no reemplaza indicaci&oacute;n m&eacute;dica.</p>
+            </details>
+            <details>
+              <summary>&iquest;La familia ve todo autom&aacute;ticamente?</summary>
               <p>No. El usuario define permisos y puede compartir solo con familiares autorizados.</p>
             </details>
             <details>
-              <summary>¿Klinip Voice reemplaza al profesional?</summary>
-              <p>No. Ayuda a registrar, resumir y explicar mejor una atención, pero no reemplaza indicación médica.</p>
+              <summary>&iquest;Qu&eacute; pasa con el precio de lanzamiento cuando termine el prelaunch?</summary>
+              <p>Los nuevos ingresos pasar&aacute;n al precio normal. El precio de lanzamiento aplica solo al acceso reservado dentro de esta etapa.</p>
             </details>
             <details>
-              <summary>¿Cómo me contacto si quiero una demo?</summary>
-              <p>
-                Puedes escribir por WhatsApp o correo. Ambos enlaces quedan configurables en esta landing.
-              </p>
+              <summary>&iquest;Tienen opci&oacute;n para centros de salud o empresas?</summary>
+              <p>S&iacute;. Klinip Empresas se cotiza aparte para CESFAM, hospitales, cl&iacute;nicas y centros particulares.</p>
+            </details>
+            <details>
+              <summary>&iquest;D&oacute;nde pido una demo o escribo por soporte?</summary>
+              <p>Puedes usar los accesos configurables de WhatsApp o correo incluidos en esta landing.</p>
             </details>
           </div>
-        </section>
-      </main>
+          <div class="lp-cta-actions">
+            <a class="lp-cta-btn" data-waitlist-link href="#lista-espera">Unirme a la lista de espera</a>
+            <a class="lp-btn-secondary" data-payment-link href="#">Reservar acceso</a>
+          </div>
+        </div>
+      </section>
 
       <footer class="lp-footer">
-        <div>
-          <strong>Klinip</strong>
-          <p>Seguimiento de salud, IA clínica y coordinación familiar en un mismo sistema.</p>
-        </div>
-        <div class="footer-links">
-          <a data-whatsapp-link href="#">WhatsApp</a>
-          <a data-email-link href="#">Correo</a>
-          <a data-app-link href="https://www.klinip.cl">App actual</a>
+        <div class="lp-footer-inner">
+          <div class="lp-footer-brand">
+            <div>
+              <strong>Klinip</strong>
+              <span>Tu ruta de salud, simplificada</span>
+            </div>
+          </div>
+          <div class="lp-footer-links">
+            <a data-whatsapp-link href="#">WhatsApp</a>
+            <a data-email-link href="#">Correo</a>
+            <a data-app-link href="https://www.klinip.cl">App actual</a>
+          </div>
         </div>
       </footer>
     </div>
