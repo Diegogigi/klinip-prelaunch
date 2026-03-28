@@ -1,655 +1,1176 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Klinip - Lista de espera</title>
 <meta
   name="description"
-  content="Klinip organiza tu salud y la de tu familia con IA Klinip, Klinip Voice y Klinip Feed. Únete a la lista de espera."
+  content="Klinip organiza tu salud y la de tu familia con IA Klinip, Klinip Voice y Klinip Feed. &Uacute;nete a la lista de espera."
 />
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root{
-  --blue:#2563EB;
-  --blue-dark:#1d4ed8;
-  --blue-light:#EEF3FD;
-  --blue-bd:#C3D4FA;
-  --green:#16A34A;
-  --green-light:#EDFAF2;
-  --green-bd:#BBF0D2;
-  --border:#E8E6DF;
-  --ink:#1C1C1E;
-  --ink2:#4A4A52;
-  --muted:#8A8A8E;
-  --bg:#FAFAF8;
-  --surface:#FFFFFF;
-  --surface-soft:#F7F7F4;
-}
-
-body.theme-dark{
-  --border:#2B3446;
-  --ink:#F4F7FF;
-  --ink2:#CDD6EA;
-  --muted:#9CA6BE;
-  --bg:#0F172A;
-  --surface:#111B30;
-  --surface-soft:#172238;
-  --blue-light:rgba(37,99,235,.14);
-  --blue-bd:rgba(96,165,250,.25);
-  --green-light:rgba(22,163,74,.14);
-  --green-bd:rgba(34,197,94,.22);
+:root {
+  color-scheme: light;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-soft: #eef4ff;
+  --blue-border: rgba(37, 99, 235, 0.16);
+  --green: #16a34a;
+  --green-soft: #ecfdf3;
+  --green-border: rgba(22, 163, 74, 0.18);
+  --text: #171927;
+  --text-soft: #5b6479;
+  --muted: #8b93a7;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-soft: rgba(255, 255, 255, 0.78);
+  --field: #f7f8fb;
+  --border: rgba(203, 213, 225, 0.9);
+  --shadow: 0 20px 56px rgba(68, 78, 123, 0.12);
+  --bg:
+    radial-gradient(circle at 8% 78%, rgba(37, 99, 235, 0.08), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(167, 139, 250, 0.14), transparent 30%),
+    linear-gradient(180deg, #f7f8fb 0%, #fcfbf7 100%);
 }
 
-body{
-  font-family:'Poppins',sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  transition:background .2s ease,color .2s ease;
+body.theme-dark {
+  color-scheme: dark;
+  --blue-soft: rgba(59, 130, 246, 0.16);
+  --blue-border: rgba(96, 165, 250, 0.22);
+  --green-soft: rgba(22, 163, 74, 0.14);
+  --green-border: rgba(34, 197, 94, 0.24);
+  --text: #eef2ff;
+  --text-soft: #c8d1e7;
+  --muted: #95a2bf;
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-soft: rgba(15, 23, 42, 0.72);
+  --field: rgba(15, 23, 42, 0.94);
+  --border: rgba(71, 85, 105, 0.72);
+  --shadow: 0 28px 72px rgba(2, 6, 23, 0.42);
+  --bg:
+    radial-gradient(circle at 8% 78%, rgba(59, 130, 246, 0.12), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(129, 140, 248, 0.16), transparent 30%),
+    linear-gradient(180deg, #0b1020 0%, #12192e 100%);
 }
 
-a{color:inherit;text-decoration:none}
-button,input,select{font:inherit}
+html { scroll-behavior: smooth; }
 
-.bg-orb1,.bg-orb2{
-  position:fixed;border-radius:50%;pointer-events:none;z-index:0;
-}
-.bg-orb1{
-  top:-120px;right:-120px;width:500px;height:500px;
-  background:radial-gradient(circle,rgba(99,102,241,.08),transparent);
-}
-.bg-orb2{
-  bottom:-100px;left:-80px;width:380px;height:380px;
-  background:radial-gradient(circle,rgba(37,99,235,.06),transparent);
+body {
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-.page{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  max-width:1200px;
-  margin:0 auto;
-  padding:40px 40px 0;
-  gap:80px;
-  align-items:center;
-  position:relative;
-  z-index:1;
+button, input, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+.page {
+  width: min(1200px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 36px 0 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 440px);
+  gap: 56px;
+  align-items: center;
 }
 
-.left,.right{padding:64px 0}
-
-.brand-text{
-  display:inline-block;
-  margin-bottom:20px;
-  font-family:'Poppins',sans-serif;
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:-.04em;
-  color:var(--blue);
-  animation:fadeUp .5s ease both .02s;
+.left,
+.right {
+  position: relative;
+  z-index: 1;
 }
 
-.left-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:5px 14px 5px 8px;border-radius:999px;
-  background:var(--blue-light);border:1px solid var(--blue-bd);color:var(--blue);
-  margin-bottom:22px;
-  animation:fadeUp .5s ease both .05s;
-}
-.pill-dot{
-  width:18px;height:18px;border-radius:50%;
-  background:var(--blue);
-  display:flex;align-items:center;justify-content:center;
-}
-.pill-dot svg{width:9px;height:9px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-
-.left-h1,.left-h2{
-  font-family:'Poppins',sans-serif;
-  font-size:50px;line-height:1.05;letter-spacing:-.03em;
-}
-.left-h1{
-  color:var(--ink);margin-bottom:8px;
-  animation:fadeUp .5s ease both .1s;
-}
-.left-h2{
-  color:var(--blue);margin-bottom:22px;font-style:italic;
-  animation:fadeUp .5s ease both .14s;
-  font-weight:700;
-}
-.left-desc{
-  font-size:16px;color:var(--ink2);font-weight:300;
-  line-height:1.7;margin-bottom:36px;max-width:420px;
-  animation:fadeUp .5s ease both .18s;
-}
-.left-desc strong{font-weight:700;color:var(--ink)}
-
-.left-checks{
-  display:flex;flex-direction:column;gap:10px;
-  margin-bottom:36px;
-  animation:fadeUp .5s ease both .22s;
-}
-.lc-item{display:flex;align-items:center;gap:10px}
-.lc-check{
-  width:22px;height:22px;border-radius:50%;flex-shrink:0;
-  background:var(--green-light);border:1px solid var(--green-bd);
-  display:flex;align-items:center;justify-content:center;
-}
-.lc-check svg{width:10px;height:10px;fill:none;stroke:var(--green);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
-.lc-text{font-size:14px;font-weight:500;color:var(--ink2)}
-.lc-text strong{color:var(--ink);font-weight:700}
-
-.social-row{
-  display:flex;align-items:center;gap:10px;
-  margin-top:14px;
-  animation:fadeUp .5s ease both .3s;
-}
-.social-avatars{display:flex}
-.social-av{
-  width:28px;height:28px;border-radius:50%;
-  border:2px solid var(--surface);
-  margin-left:-8px;font-size:10px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;color:#fff;
-}
-.social-av:first-child{margin-left:0}
-.social-text{font-size:12.5px;color:var(--muted);font-weight:300}
-.social-text strong{color:var(--ink);font-weight:700}
-
-.left-stats{
-  display:flex;gap:0;
-  margin-top:28px;
-  animation:fadeUp .5s ease both .26s;
-}
-.ls{padding:0 20px;border-right:1px solid var(--border)}
-.ls:first-child{padding-left:0}
-.ls:last-child{border-right:none}
-.ls-num{font-family:'Lora',serif;font-size:26px;color:var(--blue);letter-spacing:-.02em}
-.ls-label{font-size:11.5px;color:var(--muted);margin-top:2px}
-
-.right{display:flex;align-items:center;justify-content:center}
-
-.form-card{
-  width:100%;max-width:440px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.04),
-    0 16px 48px rgba(0,0,0,.08);
-  animation:fadeUp .5s ease both .2s;
-  position:relative;
+.brand {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--blue);
 }
 
-.form-accent{
-  height:3px;
-  background:linear-gradient(90deg,#2563EB,#6366F1,#0D9488);
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  color: var(--blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.form-header{
-  padding:28px 28px 0;
-  margin-bottom:24px;
-}
-.fh-eyebrow{
-  font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:8px;
-  display:flex;align-items:center;gap:7px;
-}
-.fh-eyebrow span{width:16px;height:1px;background:var(--blue);display:inline-block}
-.fh-title{
-  font-family:'Poppins',sans-serif;font-size:24px;color:var(--ink);
-  letter-spacing:-.02em;line-height:1.15;margin-bottom:5px;
-  font-weight:700;
-}
-.fh-title em{font-style:italic;color:var(--blue)}
-.fh-sub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.55}
-
-.fh-counter{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11.5px;font-weight:700;
-  padding:4px 12px 4px 8px;border-radius:999px;
-  background:var(--blue-light);border:1px solid var(--blue-bd);color:var(--blue);
-  margin-top:12px;
-}
-.counter-live{width:7px;height:7px;border-radius:50%;background:#16A34A;animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-.form-divider{height:1px;background:var(--border);margin:0 28px}
-.form-body{padding:24px 28px}
-
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.field:last-of-type{margin-bottom:0}
-.field-label{
-  font-size:11.5px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--muted);
-}
-.field-input,.field-select{
-  width:100%;padding:11px 14px;
-  border-radius:11px;border:1.5px solid var(--border);
-  background:var(--surface-soft);
-  font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:14px;color:var(--ink);
-  outline:none;transition:border-color .15s,background .15s,box-shadow .15s;
-}
-.field-input:focus,.field-select:focus{
-  border-color:var(--blue-bd);
-  background:var(--surface);
-  box-shadow:0 0 0 3px rgba(37,99,235,.08);
-}
-.field-input::placeholder{color:#B7B7B1}
-.field-input.error{border-color:#FBC8C8;background:#FEF0F0}
-.field-error{font-size:11px;color:#DC2626;font-weight:500;display:none}
-.field-error.show{display:block}
-
-.field-select{
-  cursor:pointer;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8A8E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
+.pill-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
 }
 
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-
-.tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.tipo-opt{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 12px;border-radius:10px;
-  border:1.5px solid var(--border);background:var(--surface-soft);
-  cursor:pointer;transition:border-color .15s,background .15s;
-  user-select:none;
-}
-.tipo-opt:hover{border-color:var(--blue-bd);background:var(--blue-light)}
-.tipo-opt.selected{border-color:var(--blue);background:var(--blue-light)}
-.tipo-radio{
-  width:16px;height:16px;border-radius:50%;
-  border:2px solid var(--border);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s;
-}
-.tipo-opt.selected .tipo-radio{border-color:var(--blue)}
-.tipo-radio-inner{width:8px;height:8px;border-radius:50%;background:var(--blue);opacity:0;transition:opacity .15s}
-.tipo-opt.selected .tipo-radio-inner{opacity:1}
-.tipo-icon{
-  width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
-  color:var(--blue);
-}
-.tipo-icon svg{
-  width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
-}
-.tipo-label{font-size:12.5px;font-weight:600;color:var(--ink2)}
-.tipo-opt.selected .tipo-label{color:var(--blue)}
-
-.consent-row{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:14px;border-radius:11px;
-  background:var(--surface-soft);border:1px solid var(--border);
-  margin-top:14px;cursor:pointer;transition:border-color .15s;
-}
-.consent-row:hover{border-color:var(--blue-bd)}
-.consent-check{
-  width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;
-  border:1.5px solid var(--border);background:var(--surface);
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s,background .15s;
-}
-.consent-row.checked .consent-check{border-color:var(--blue);background:var(--blue)}
-.consent-check svg{width:10px;height:10px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0}
-.consent-row.checked .consent-check svg{opacity:1}
-.consent-text{font-size:12px;color:var(--muted);line-height:1.5;font-weight:300}
-.consent-text a{color:var(--blue);font-weight:600}
-
-.btn-submit{
-  width:100%;margin-top:16px;
-  padding:14px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,#2563EB,#6366F1);
-  color:#fff;font-size:15px;font-weight:700;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 6px 20px rgba(37,99,235,.3);
-  transition:box-shadow .15s,transform .1s;
-  position:relative;overflow:hidden;
-}
-.btn-submit:hover{box-shadow:0 10px 28px rgba(37,99,235,.4);transform:translateY(-1px)}
-.btn-submit:active{transform:scale(.98)}
-.btn-submit svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.btn-submit::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);
-  transform:translateX(-100%);
-}
-.btn-submit:hover::after{animation:shimmer .6s ease forwards}
-@keyframes shimmer{to{transform:translateX(100%)}}
-
-.form-footnote{
-  font-size:11.5px;color:var(--muted);text-align:center;
-  margin-top:10px;line-height:1.5;font-weight:300;
+.pill-dot svg,
+.check svg,
+.success-icon svg,
+.status-badge svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.success-state{
-  display:none;
-  flex-direction:column;align-items:center;justify-content:center;
-  padding:48px 28px;text-align:center;
-}
-.success-icon{
-  width:64px;height:64px;border-radius:50%;
-  background:var(--green-light);border:2px solid var(--green-bd);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;
-  animation:popIn .4s cubic-bezier(.16,1,.3,1) both;
-}
-@keyframes popIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
-.success-icon svg,.success-position svg{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.success-icon svg{width:28px;height:28px;color:var(--green)}
-.success-h{font-family:'Poppins',sans-serif;font-size:24px;color:var(--ink);letter-spacing:-.02em;margin-bottom:8px;font-weight:700}
-.success-h em{font-style:italic;color:var(--green)}
-.success-sub{font-size:14px;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:20px;max-width:300px}
-.success-position{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:700;padding:8px 18px;border-radius:999px;
-  background:var(--green-light);color:var(--green);border:1px solid var(--green-bd);
-}
-.success-position svg{width:16px;height:16px}
-.success-share{
-  margin-top:20px;padding-top:20px;border-top:1px solid var(--border);
-  width:100%;text-align:center;
-}
-.ss-label{font-size:11.5px;color:var(--muted);margin-bottom:10px;font-weight:500}
-.ss-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.ss-btn{
-  font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;
-  border:1.5px solid var(--border);background:var(--surface-soft);color:var(--ink2);
-  cursor:pointer;transition:background .15s,border-color .15s,color .15s;
-  display:flex;align-items:center;gap:6px;
-}
-.ss-btn:hover{background:var(--surface);border-color:#bbb;color:var(--ink)}
+.pill-dot svg { color: #fff; }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-@media(max-width:800px){
-  .page{grid-template-columns:1fr;gap:0;padding:24px 24px 0}
-  .left{padding:40px 0 24px}
-  .left-h1,.left-h2{font-size:38px}
-  .right{padding:0 0 48px}
-  .form-card{max-width:100%}
-  .brand-text{font-size:24px;margin-bottom:16px}
+.hero-title {
+  margin-top: 22px;
+  font-size: clamp(2.9rem, 6vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  max-width: 10ch;
+  font-weight: 700;
 }
 
-@media(max-width:520px){
-  .field-row,.tipo-grid{grid-template-columns:1fr}
-  .left-stats{flex-wrap:wrap;gap:12px}
-  .ls{padding:0;border-right:none}
+.hero-title em {
+  display: block;
+  color: var(--blue);
+  font-style: italic;
+}
+
+.hero-copy {
+  margin-top: 18px;
+  max-width: 32rem;
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: var(--text-soft);
+}
+
+.hero-copy strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex: 0 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-soft);
+  border: 1px solid var(--green-border);
+  color: var(--green);
+}
+
+.check-text {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.check-text strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.meta-card {
+  min-width: 156px;
+  padding: 16px 18px;
+  border-radius: 24px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(71, 85, 105, 0.06);
+}
+
+body.theme-dark .meta-card {
+  box-shadow: 0 14px 28px rgba(2, 6, 23, 0.26);
+}
+
+.meta-card strong {
+  display: block;
+  color: var(--blue);
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
+}
+
+.meta-card span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-avatars {
+  display: flex;
+}
+
+.social-avatars span {
+  width: 28px;
+  height: 28px;
+  margin-left: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.social-avatars span:first-child { margin-left: 0; }
+
+.social-text {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.social-text strong {
+  color: var(--text);
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.form-accent {
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #6366f1, #0d9488);
+}
+
+.form-head {
+  padding: 28px 28px 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+}
+
+.form-head h2 {
+  font-size: 2rem;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+}
+
+.form-head h2 em {
+  color: var(--blue);
+  font-style: italic;
+}
+
+.form-head p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.divider {
+  height: 1px;
+  margin: 22px 28px 0;
+  background: var(--border);
+}
+
+.form-body {
+  padding: 22px 28px 28px;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.field label small {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: var(--field);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.field input::placeholder {
+  color: #b2b8c8;
+}
+
+.field input:focus,
+.field select:focus {
+  background: var(--surface);
+  border-color: rgba(37, 99, 235, 0.34);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+}
+
+.field input.error {
+  border-color: rgba(220, 38, 38, 0.44);
+  background: rgba(254, 242, 242, 0.92);
+}
+
+body.theme-dark .field input.error {
+  background: rgba(69, 10, 10, 0.22);
+}
+
+.field-error {
+  display: none;
+  color: #dc2626;
+  font-size: 0.76rem;
+}
+
+.field-error.show {
+  display: block;
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b93a7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.tipo-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tipo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: var(--field);
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.tipo:hover {
+  border-color: var(--blue-border);
+  background: var(--blue-soft);
+}
+
+.tipo.selected {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.tipo-radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: 0 0 16px;
+  border: 2px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tipo.selected .tipo-radio {
+  border-color: var(--blue);
+}
+
+.tipo-radio::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0;
+}
+
+.tipo.selected .tipo-radio::after {
+  opacity: 1;
+}
+
+.tipo-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--blue);
+  flex: 0 0 18px;
+}
+
+.tipo-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tipo span:last-child {
+  color: var(--text-soft);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.tipo.selected span:last-child {
+  color: var(--blue);
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  cursor: pointer;
+}
+
+.consent:hover {
+  border-color: var(--blue-border);
+}
+
+.consent-box {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+}
+
+.consent.checked .consent-box {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.consent-box svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.consent.checked .consent-box svg {
+  opacity: 1;
+}
+
+.consent p {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.consent a {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb, #6366f1);
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 16px 28px rgba(37, 99, 235, 0.24);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px rgba(37, 99, 235, 0.28);
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.submit svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footnote,
+.form-status {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.form-status.success { color: var(--green); }
+.form-status.error { color: #dc2626; }
+
+.success {
+  display: none;
+  padding: 44px 28px 46px;
+  text-align: center;
+}
+
+.success.show {
+  display: block;
+}
+
+.success-icon {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  background: var(--green-soft);
+  border: 1px solid var(--green-border);
+}
+
+.success-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.success h3 {
+  font-size: 1.6rem;
+  letter-spacing: -0.04em;
+}
+
+.success h3 em {
+  color: var(--green);
+  font-style: italic;
+}
+
+.success p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.success-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--green);
+  background: var(--green-soft);
+  border: 1px solid var(--green-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 980px) {
+  .page {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 24px;
+  }
+
+  .left {
+    padding-top: 8px;
+  }
+
+  .hero-title {
+    max-width: none;
+  }
+
+  .right {
+    padding-bottom: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    width: min(100% - 20px, 1200px);
+    gap: 16px;
+    padding-top: 18px;
+    padding-bottom: 20px;
+  }
+
+  .brand {
+    margin-bottom: 14px;
+    font-size: 1.8rem;
+  }
+
+  .hero-title {
+    margin-top: 18px;
+    font-size: clamp(2.35rem, 12vw, 3.2rem);
+  }
+
+  .hero-copy {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  .checklist {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .check-text {
+    font-size: 0.88rem;
+  }
+
+  .meta-row {
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .meta-card {
+    min-width: calc(50% - 5px);
+    padding: 14px 14px;
+    border-radius: 18px;
+  }
+
+  .social {
+    margin-top: 16px;
+  }
+
+  .form-head {
+    padding: 22px 18px 0;
+  }
+
+  .divider {
+    margin: 18px 18px 0;
+  }
+
+  .form-body,
+  .success {
+    padding: 18px 18px 22px;
+  }
+
+  .form-head h2 {
+    font-size: 1.75rem;
+  }
+
+  .grid-two,
+  .tipo-group {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .field {
+    margin-bottom: 12px;
+  }
+
+  .field input,
+  .field select,
+  .tipo {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+  .consent {
+    margin-top: 14px;
+    padding: 12px;
+  }
+
+  .submit {
+    margin-top: 14px;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="bg-orb1"></div>
-<div class="bg-orb2"></div>
-
-<div class="page">
-  <div class="left">
-    <div class="brand-text">Klinip</div>
-    <div class="left-pill">
-      <div class="pill-dot">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l2.5 2.5"></path></svg>
-      </div>
-      Lanzamiento próximo
+<main class="page">
+  <section class="left">
+    <div class="brand">Klinip</div>
+    <div class="pill">
+      <span class="pill-dot">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"></circle><path d="M12 8v4l2.5 2.5"></path></svg>
+      </span>
+      Lanzamiento pr&oacute;ximo
     </div>
 
-    <div class="left-h1">Tu salud y tu familia,</div>
-    <div class="left-h2">organizadas con IA</div>
+    <h1 class="hero-title">
+      Tu salud y tu familia,
+      <em>organizadas con IA</em>
+    </h1>
 
-    <p class="left-desc">
-      Accede a perfiles familiares autorizados y ordena tu información con <strong>IA Klinip</strong>, <strong>Klinip Voice</strong> y <strong>Klinip Feed</strong> en un solo lugar.
+    <p class="hero-copy">
+      Accede a perfiles familiares autorizados y organiza tu informaci&oacute;n con
+      <strong>IA Klinip</strong>, <strong>Klinip Voice</strong> y <strong>Klinip Feed</strong> desde un mismo lugar.
     </p>
 
-    <div class="left-checks">
-      <div class="lc-item">
-        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="lc-text"><strong>Perfil familiar</strong> con acceso a personas autorizadas</span>
+    <div class="checklist">
+      <div class="check-item">
+        <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <span class="check-text"><strong>Perfil familiar</strong> con acceso para personas autorizadas</span>
       </div>
-      <div class="lc-item">
-        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="lc-text"><strong>IA Klinip</strong> para entender y ordenar tu salud</span>
+      <div class="check-item">
+        <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <span class="check-text"><strong>IA Klinip</strong> para entender y ordenar tu salud</span>
       </div>
-      <div class="lc-item">
-        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="lc-text"><strong>Klinip Voice</strong> para resumir consultas en simple</span>
+      <div class="check-item">
+        <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <span class="check-text"><strong>Klinip Voice</strong> para resumir consultas en simple</span>
       </div>
-      <div class="lc-item">
-        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="lc-text"><strong>Klinip Feed</strong> para seguimiento familiar privado</span>
-      </div>
-    </div>
-
-    <div class="social-row">
-      <div class="social-avatars">
-        <div class="social-av" style="background:linear-gradient(135deg,#3B82F6,#6366F1)">M</div>
-        <div class="social-av" style="background:linear-gradient(135deg,#16A34A,#0D9488)">C</div>
-        <div class="social-av" style="background:linear-gradient(135deg,#D97706,#DC2626)">R</div>
-        <div class="social-av" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">P</div>
-      </div>
-      <div class="social-text">
-        <strong>+240 personas</strong> ya están en la lista
+      <div class="check-item">
+        <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <span class="check-text"><strong>Klinip Feed</strong> para seguimiento familiar privado</span>
       </div>
     </div>
 
-    <div class="left-stats">
-      <div class="ls"><div class="ls-num">100%</div><div class="ls-label">Gratis para empezar</div></div>
-      <div class="ls"><div class="ls-num">IA</div><div class="ls-label">Copiloto de salud</div></div>
-      <div class="ls"><div class="ls-num">5</div><div class="ls-label">Perfiles por familia</div></div>
+    <div class="social">
+      <div class="social-avatars" aria-hidden="true">
+        <span style="background:linear-gradient(135deg,#3b82f6,#6366f1)">M</span>
+        <span style="background:linear-gradient(135deg,#16a34a,#0d9488)">C</span>
+        <span style="background:linear-gradient(135deg,#d97706,#dc2626)">R</span>
+        <span style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">P</span>
+      </div>
+      <div class="social-text"><strong id="social-total">240 personas</strong> ya est&aacute;n en la lista</div>
     </div>
-  </div>
 
-  <div class="right">
-    <div class="form-card" id="form-card">
+    <div class="meta-row">
+      <div class="meta-card">
+        <strong id="meta-total">240</strong>
+        <span>Personas interesadas</span>
+      </div>
+      <div class="meta-card">
+        <strong id="meta-remaining">60</strong>
+        <span>Cupos premium restantes</span>
+      </div>
+      <div class="meta-card">
+        <strong>5</strong>
+        <span>Perfiles por familia</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="right">
+    <div class="form-card">
       <div class="form-accent"></div>
 
-      <div class="form-header">
-        <div class="fh-eyebrow"><span></span>Lista de espera</div>
-        <div class="fh-title">Reserva tu<br><em>lugar hoy</em></div>
-        <p class="fh-sub">Sé de los primeros en usar Klinip y obtén beneficios exclusivos de lanzamiento.</p>
-        <div class="fh-counter">
-          <div class="counter-live"></div>
-          <span>241 personas en lista · quedan <strong>59 lugares</strong> premium</span>
+      <div class="form-head">
+        <div class="eyebrow"><span></span>Lista de espera</div>
+        <h2>Reserva tu <em>lugar hoy</em></h2>
+        <p>S&eacute; de los primeros en usar Klinip y obt&eacute;n beneficios exclusivos de lanzamiento.</p>
+        <div class="status-badge">
+          <span class="live-dot"></span>
+          <span><span id="badge-total">240</span> personas en lista &middot; quedan <strong id="badge-remaining">60</strong> lugares premium</span>
         </div>
       </div>
 
-      <div class="form-divider"></div>
+      <div class="divider"></div>
 
       <div class="form-body" id="form-body">
-        <div class="field-row">
+        <div class="grid-two">
           <div class="field">
-            <label class="field-label">Nombre</label>
-            <input class="field-input" id="f-nombre" type="text" placeholder="Tu nombre"/>
-            <span class="field-error" id="err-nombre">Ingresa tu nombre</span>
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" type="text" placeholder="Tu nombre" />
+            <span class="field-error" id="err-nombre">Ingresa tu nombre.</span>
           </div>
           <div class="field">
-            <label class="field-label">Apellido</label>
-            <input class="field-input" id="f-apellido" type="text" placeholder="Tu apellido"/>
+            <label for="f-apellido">Apellido</label>
+            <input id="f-apellido" type="text" placeholder="Tu apellido" />
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label">Correo electrónico</label>
-          <input class="field-input" id="f-email" type="email" placeholder="tucorreo@gmail.com"/>
-          <span class="field-error" id="err-email">Ingresa un correo válido</span>
+          <label for="f-email">Correo electr&oacute;nico</label>
+          <input id="f-email" type="email" placeholder="tucorreo@gmail.com" />
+          <span class="field-error" id="err-email">Ingresa un correo v&aacute;lido.</span>
         </div>
 
         <div class="field">
-          <label class="field-label">Teléfono <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:#B7B7B1">(opcional)</span></label>
-          <input class="field-input" id="f-tel" type="tel" placeholder="+56 9 1234 5678"/>
+          <label for="f-tel">Tel&eacute;fono <small>(opcional)</small></label>
+          <input id="f-tel" type="tel" placeholder="+56 9 1234 5678" />
         </div>
 
-        <div class="field" style="margin-bottom:14px">
-          <label class="field-label">¿Cómo gestionas tu salud hoy?</label>
-          <select class="field-select" id="f-como">
-            <option value="">Selecciona una opción</option>
-            <option>Libretas o papel</option>
-            <option>WhatsApp o fotos del celular</option>
-            <option>Carpetas físicas</option>
-            <option>Otra app (Notion, Excel, etc.)</option>
-            <option>No tengo un sistema</option>
+        <div class="field">
+          <label for="f-como">&iquest;C&oacute;mo gestionas tu salud hoy?</label>
+          <select id="f-como">
+            <option value="">Selecciona una opci&oacute;n</option>
+            <option value="Libretas o papel">Libretas o papel</option>
+            <option value="WhatsApp o fotos del celular">WhatsApp o fotos del celular</option>
+            <option value="Carpetas f&iacute;sicas">Carpetas f&iacute;sicas</option>
+            <option value="Otra app">Otra app (Notion, Excel, etc.)</option>
+            <option value="No tengo un sistema">No tengo un sistema</option>
           </select>
         </div>
 
-        <div class="field" style="margin-bottom:0">
-          <label class="field-label">¿Quién usará Klinip?</label>
-          <div class="tipo-grid" id="tipo-grid">
-            <div class="tipo-opt selected" onclick="selectTipo(this)">
-              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+        <div class="field">
+          <label>&iquest;Qui&eacute;n usar&aacute; Klinip?</label>
+          <div class="tipo-group" id="tipo-group">
+            <button class="tipo selected" type="button" data-tipo="solo_yo">
+              <span class="tipo-radio"></span>
               <span class="tipo-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 19.5a6 6 0 0 1 12 0"/></svg>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"></circle><path d="M6 19.5a6 6 0 0 1 12 0"></path></svg>
               </span>
-              <span class="tipo-label">Solo yo</span>
-            </div>
-            <div class="tipo-opt" onclick="selectTipo(this)">
-              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span>Solo yo</span>
+            </button>
+            <button class="tipo" type="button" data-tipo="familia">
+              <span class="tipo-radio"></span>
               <span class="tipo-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.5"/><circle cx="16" cy="9" r="2.5"/><path d="M3.5 19a4.5 4.5 0 0 1 9 0"/><path d="M11.5 19a4.5 4.5 0 0 1 9 0"/></svg>
+                <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.5"></circle><circle cx="16" cy="9" r="2.5"></circle><path d="M3.5 19a4.5 4.5 0 0 1 9 0"></path><path d="M11.5 19a4.5 4.5 0 0 1 9 0"></path></svg>
               </span>
-              <span class="tipo-label">Mi familia</span>
-            </div>
-            <div class="tipo-opt" onclick="selectTipo(this)">
-              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span>Mi familia</span>
+            </button>
+            <button class="tipo" type="button" data-tipo="cuidador">
+              <span class="tipo-radio"></span>
               <span class="tipo-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><g transform="rotate(-35 12 12)"><rect x="5" y="8" width="14" height="8" rx="4"/><path d="M5 12a4 4 0 0 1 4-4h3v8H9a4 4 0 0 1-4-4z" fill="currentColor" stroke="none"/><path d="M12 8v8"/></g></svg>
+                <svg viewBox="0 0 24 24"><path d="M8 7.5a3 3 0 0 1 6 0v1h1.5A2.5 2.5 0 0 1 18 11v4.5A2.5 2.5 0 0 1 15.5 18h-7A2.5 2.5 0 0 1 6 15.5V11a2.5 2.5 0 0 1 2.5-2.5H10v-1"></path><path d="M12 12.5v2.5"></path></svg>
               </span>
-              <span class="tipo-label">Cuido a alguien</span>
-            </div>
-            <div class="tipo-opt" onclick="selectTipo(this)">
-              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span>Cuido a alguien</span>
+            </button>
+            <button class="tipo" type="button" data-tipo="profesional">
+              <span class="tipo-radio"></span>
               <span class="tipo-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M7 3.5h7l3 3.5V20a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5z"/><path d="M14 3.5v4h3"/><path d="M9 12h6M9 15h6M9 9h2"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M7 3.5h7l3 3.5V20A1.5 1.5 0 0 1 15.5 21.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5z"></path><path d="M14 3.5v4h3"></path><path d="M9 12h6"></path><path d="M9 15h6"></path><path d="M9 9h2"></path></svg>
               </span>
-              <span class="tipo-label">Soy profesional</span>
-            </div>
+              <span>Soy profesional</span>
+            </button>
           </div>
         </div>
 
-        <div class="consent-row" id="consent-row" onclick="toggleConsent()">
-          <div class="consent-check">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="consent-text">
-            Acepto recibir novedades de Klinip por correo. Puedes darte de baja en cualquier momento. Consulta nuestra <a href="#">política de privacidad</a>.
-          </div>
+        <div class="consent" id="consent">
+          <span class="consent-box">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <p>
+            Acepto recibir novedades de Klinip por correo. Puedes darte de baja en cualquier momento. Consulta nuestra
+            <a href="#">pol&iacute;tica de privacidad</a>.
+          </p>
         </div>
 
-        <button class="btn-submit" id="btn-submit" onclick="handleSubmit()">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <button class="submit" id="submit" type="button">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
           Unirme a la lista de espera
         </button>
 
-        <p class="form-footnote">Sin spam. Sin tarjeta de crédito. Te avisamos cuando lancemos.</p>
+        <p class="footnote">Sin spam. Sin tarjeta de cr&eacute;dito. Te avisamos cuando lancemos.</p>
+        <p class="form-status" id="form-status" aria-live="polite"></p>
       </div>
 
-      <div class="success-state" id="success-state">
+      <div class="success" id="success">
         <div class="success-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
-        <div class="success-h">¡Estás en la <em>lista!</em></div>
-        <p class="success-sub">Te notificaremos cuando Klinip esté listo para ti. Revisa tu correo para confirmar.</p>
-        <div class="success-position">
-          <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
-          Posición #242 en la lista
-        </div>
-        <div class="success-share">
-          <div class="ss-label">Comparte Klinip y sube en la lista</div>
-          <div class="ss-btns">
-            <button class="ss-btn" type="button">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-              Twitter/X
-            </button>
-            <button class="ss-btn" type="button">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/></svg>
-              WhatsApp
-            </button>
-            <button class="ss-btn" type="button">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copiar link
-            </button>
-          </div>
+        <h3>&iexcl;Est&aacute;s en la <em>lista!</em></h3>
+        <p>Te notificaremos cuando Klinip est&eacute; listo para ti. Revisa tu correo para confirmar.</p>
+        <div class="success-tag">
+          <svg viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
+          Posici&oacute;n <span id="success-position-text">#241</span> en la lista
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+</main>
 
 <script>
-const storageKey = "klinip_waitlist_theme";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHkFK9P6zhG7TWP20y6CntBSQKvaPf2nbZKs9v_JvUkz03zDp5j1u5Lx1tsWbOmy2x/exec";
+const PREMIUM_SLOT_LIMIT = 300;
 
-function applyTheme(theme) {
-  document.body.classList.toggle("theme-dark", theme === "dark");
-  localStorage.setItem(storageKey, theme);
+const prefersDark =
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+if (prefersDark) {
+  document.body.classList.add("theme-dark");
 }
 
-function selectTipo(el) {
-  document.querySelectorAll('.tipo-opt').forEach((o) => o.classList.remove('selected'));
-  el.classList.add('selected');
+const tipoButtons = Array.from(document.querySelectorAll(".tipo"));
+const consent = document.getElementById("consent");
+const submitButton = document.getElementById("submit");
+const formStatus = document.getElementById("form-status");
+const formBody = document.getElementById("form-body");
+const successState = document.getElementById("success");
+const socialTotal = document.getElementById("social-total");
+const metaTotal = document.getElementById("meta-total");
+const metaRemaining = document.getElementById("meta-remaining");
+const badgeTotal = document.getElementById("badge-total");
+const badgeRemaining = document.getElementById("badge-remaining");
+const successPositionText = document.getElementById("success-position-text");
+let consentChecked = false;
+let currentLeadCount = 240;
+
+tipoButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    tipoButtons.forEach((item) => item.classList.remove("selected"));
+    button.classList.add("selected");
+  });
+});
+
+consent.addEventListener("click", () => {
+  consentChecked = !consentChecked;
+  consent.classList.toggle("checked", consentChecked);
+});
+
+function selectedTipo() {
+  return document.querySelector(".tipo.selected")?.dataset.tipo || "solo_yo";
 }
 
-let consented = false;
-function toggleConsent() {
-  consented = !consented;
-  document.getElementById('consent-row').classList.toggle('checked', consented);
+function markFieldError(inputId, errorId, active) {
+  const input = document.getElementById(inputId);
+  const error = document.getElementById(errorId);
+  input.classList.toggle("error", active);
+  error.classList.toggle("show", active);
 }
 
-function handleSubmit() {
+function setStatus(message, tone) {
+  formStatus.textContent = message;
+  formStatus.className = "form-status";
+  if (tone) {
+    formStatus.classList.add(tone);
+  }
+}
+
+function renderStats(totalLeads) {
+  currentLeadCount = Number.isFinite(totalLeads) && totalLeads >= 0 ? totalLeads : currentLeadCount;
+  const remaining = Math.max(PREMIUM_SLOT_LIMIT - currentLeadCount, 0);
+
+  socialTotal.textContent = `${currentLeadCount} personas`;
+  metaTotal.textContent = String(currentLeadCount);
+  metaRemaining.textContent = String(remaining);
+  badgeTotal.textContent = String(currentLeadCount);
+  badgeRemaining.textContent = String(remaining);
+  successPositionText.textContent = `#${currentLeadCount + 1}`;
+}
+
+function loadStats() {
+  const callbackName = `klinipWaitlistStats_${Date.now()}`;
+
+  window[callbackName] = (payload) => {
+    const leads = Number(payload?.total_leads);
+    renderStats(leads);
+    cleanup();
+  };
+
+  const cleanup = () => {
+    delete window[callbackName];
+    script.remove();
+  };
+
+  const script = document.createElement("script");
+  script.src = `${APPS_SCRIPT_URL}?action=stats&callback=${callbackName}`;
+  script.async = true;
+  script.onerror = cleanup;
+  document.body.appendChild(script);
+}
+
+function resetValidation() {
+  markFieldError("f-nombre", "err-nombre", false);
+  markFieldError("f-email", "err-email", false);
+  setStatus("", "");
+}
+
+function submitIcon(spinner) {
+  if (spinner) {
+    return '<svg class="spinner" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>';
+  }
+  return '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>';
+}
+
+async function handleSubmit() {
+  resetValidation();
+
+  const nombre = document.getElementById("f-nombre").value.trim();
+  const apellido = document.getElementById("f-apellido").value.trim();
+  const email = document.getElementById("f-email").value.trim();
+  const telefono = document.getElementById("f-tel").value.trim();
+  const comoGestiona = document.getElementById("f-como").value;
+
   let valid = true;
-
-  const nombre = document.getElementById('f-nombre');
-  const email = document.getElementById('f-email');
-  const errNombre = document.getElementById('err-nombre');
-  const errEmail = document.getElementById('err-email');
-
-  nombre.classList.remove('error');
-  email.classList.remove('error');
-  errNombre.classList.remove('show');
-  errEmail.classList.remove('show');
-
-  if (!nombre.value.trim()) {
-    nombre.classList.add('error');
-    errNombre.classList.add('show');
+  if (!nombre) {
+    markFieldError("f-nombre", "err-nombre", true);
     valid = false;
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.value.trim())) {
-    email.classList.add('error');
-    errEmail.classList.add('show');
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailOk) {
+    markFieldError("f-email", "err-email", true);
     valid = false;
   }
 
-  if (!valid) return;
+  if (!consentChecked) {
+    setStatus("Debes aceptar el contacto para unirte a la lista de espera.", "error");
+    valid = false;
+  }
 
-  const btn = document.getElementById('btn-submit');
-  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Procesando...';
-  btn.style.opacity = '.8';
-  btn.style.pointerEvents = 'none';
+  if (!valid) {
+    return;
+  }
 
-  setTimeout(() => {
-    document.getElementById('form-body').style.display = 'none';
-    const successState = document.getElementById('success-state');
-    successState.style.display = 'flex';
-    successState.style.animation = 'fadeUp .5s ease both';
-  }, 1200);
+  const payload = {
+    nombre,
+    apellido,
+    email,
+    telefono,
+    como_gestiona: comoGestiona,
+    tipo_uso: selectedTipo(),
+  };
+
+  submitButton.disabled = true;
+  submitButton.innerHTML = submitIcon(true) + "Enviando...";
+  setStatus("Guardando tu registro...", "");
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    formBody.style.display = "none";
+    renderStats(currentLeadCount + 1);
+    successState.classList.add("show");
+  } catch (error) {
+    setStatus("No pudimos guardar tu registro. Intenta nuevamente en unos minutos.", "error");
+    submitButton.disabled = false;
+    submitButton.innerHTML = submitIcon(false) + "Unirme a la lista de espera";
+  }
 }
 
-const savedTheme = localStorage.getItem(storageKey);
-if (savedTheme === 'dark' || savedTheme === 'light') {
-  applyTheme(savedTheme);
-}
-
-const style = document.createElement('style');
-style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
-document.head.appendChild(style);
+submitButton.addEventListener("click", handleSubmit);
+renderStats(currentLeadCount);
+loadStats();
 </script>
 </body>
 </html>
