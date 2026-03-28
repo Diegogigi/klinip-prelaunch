@@ -205,72 +205,245 @@ a { color: inherit; text-decoration: none; }
 }
 
 .meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
 }
 
 .meta-card {
-  min-width: 156px;
-  padding: 16px 18px;
+  min-height: 148px;
+  padding: 18px 18px 16px;
   border-radius: 24px;
-  background: var(--surface-soft);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(245, 248, 255, 0.96)),
+    var(--surface-soft);
   border: 1px solid var(--border);
   box-shadow: 0 10px 24px rgba(71, 85, 105, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 body.theme-dark .meta-card {
+  background:
+    linear-gradient(180deg, rgba(17, 27, 48, 0.96), rgba(15, 23, 42, 0.92)),
+    var(--surface-soft);
   box-shadow: 0 14px 28px rgba(2, 6, 23, 0.26);
+}
+
+.meta-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.meta-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+}
+
+.meta-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.meta-card.is-primary .meta-icon {
+  color: var(--green);
+  background: var(--green-soft);
+  border-color: var(--green-border);
 }
 
 .meta-card strong {
   display: block;
   color: var(--blue);
-  font-size: 1.4rem;
+  font-size: 2rem;
   letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.meta-card.is-primary strong {
+  color: var(--green);
 }
 
 .meta-card span {
   display: block;
-  margin-top: 2px;
+  margin-top: 8px;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .social {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
+  padding: 10px 14px;
+  width: fit-content;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
 }
 
-.social-avatars {
-  display: flex;
-}
-
-.social-avatars span {
-  width: 28px;
-  height: 28px;
-  margin-left: -8px;
-  border-radius: 50%;
-  border: 2px solid var(--surface);
+.social.show {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #fff;
 }
 
-.social-avatars span:first-child { margin-left: 0; }
+.social-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.12);
+}
 
 .social-text {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--muted);
 }
 
 .social-text strong {
+  color: var(--text);
+}
+
+.pricing-block {
+  margin-top: 28px;
+}
+
+.pricing-head {
+  margin-bottom: 14px;
+}
+
+.pricing-head h2 {
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+}
+
+.pricing-head p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.price-card {
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  box-shadow: 0 12px 26px rgba(71, 85, 105, 0.06);
+  padding: 18px;
+}
+
+body.theme-dark .price-card {
+  box-shadow: 0 16px 28px rgba(2, 6, 23, 0.24);
+}
+
+.price-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.price-badge.soft {
+  background: var(--green-soft);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+.price-badge.neutral {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(124, 58, 237, 0.18);
+  color: #7c3aed;
+}
+
+body.theme-dark .price-badge.neutral {
+  background: rgba(124, 58, 237, 0.16);
+  border-color: rgba(167, 139, 250, 0.24);
+  color: #c4b5fd;
+}
+
+.price-title {
+  margin-top: 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.price-line {
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.price-line strong {
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--blue);
+}
+
+.price-line span {
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.price-note {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.price-note strong {
+  color: var(--text);
+}
+
+.price-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.price-list li {
+  color: var(--text-soft);
+  font-size: 0.83rem;
+  line-height: 1.45;
+}
+
+.price-list li strong {
   color: var(--text);
 }
 
@@ -682,17 +855,32 @@ body.theme-dark .field input.error {
 }
 
 .success-tag {
-  display: inline-flex;
+  display: inline-grid;
+  grid-auto-flow: column;
   align-items: center;
   gap: 8px;
   margin-top: 18px;
-  padding: 8px 14px;
-  border-radius: 999px;
+  padding: 10px 16px;
+  border-radius: 18px;
   color: var(--green);
   background: var(--green-soft);
   border: 1px solid var(--green-border);
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 700;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.success-tag strong {
+  font-size: 1.35rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.success-tag span:last-child {
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  font-weight: 600;
 }
 
 .spinner {
@@ -718,6 +906,10 @@ body.theme-dark .field input.error {
 
   .right {
     padding-bottom: 24px;
+  }
+
+  .meta-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -755,18 +947,35 @@ body.theme-dark .field input.error {
   }
 
   .meta-row {
+    grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 20px;
   }
 
   .meta-card {
-    min-width: calc(50% - 5px);
+    min-height: 0;
     padding: 14px 14px;
     border-radius: 18px;
   }
 
   .social {
     margin-top: 16px;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
+  .pricing-block {
+    margin-top: 22px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-card {
+    padding: 16px;
+    border-radius: 18px;
   }
 
   .form-head {
@@ -810,6 +1019,14 @@ body.theme-dark .field input.error {
 
   .submit {
     margin-top: 14px;
+  }
+
+  .success-tag {
+    width: 100%;
+    grid-auto-flow: row;
+    justify-items: center;
+    text-align: center;
+    gap: 6px;
   }
 }
 </style>
@@ -855,28 +1072,115 @@ body.theme-dark .field input.error {
       </div>
     </div>
 
-    <div class="social">
-      <div class="social-avatars" aria-hidden="true">
-        <span style="background:linear-gradient(135deg,#3b82f6,#6366f1)">M</span>
-        <span style="background:linear-gradient(135deg,#16a34a,#0d9488)">C</span>
-        <span style="background:linear-gradient(135deg,#d97706,#dc2626)">R</span>
-        <span style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">P</span>
-      </div>
+    <div class="social" id="social-proof">
+      <span class="social-dot" aria-hidden="true"></span>
       <div class="social-text"><strong id="social-total">0 personas</strong> ya est&aacute;n en la lista</div>
     </div>
 
     <div class="meta-row">
       <div class="meta-card">
-        <strong id="meta-total">0</strong>
+        <div class="meta-head">
+          <strong id="meta-total">0</strong>
+          <span class="meta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg>
+          </span>
+        </div>
         <span>Personas interesadas</span>
       </div>
-      <div class="meta-card">
-        <strong id="meta-remaining">100</strong>
+      <div class="meta-card is-primary">
+        <div class="meta-head">
+          <strong id="meta-remaining">100</strong>
+          <span class="meta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
+          </span>
+        </div>
         <span>Cupos premium restantes</span>
       </div>
       <div class="meta-card">
-        <strong>5</strong>
+        <div class="meta-head">
+          <strong>5</strong>
+          <span class="meta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.5"></circle><circle cx="16" cy="9" r="2.5"></circle><path d="M3.5 19a4.5 4.5 0 0 1 9 0"></path><path d="M11.5 19a4.5 4.5 0 0 1 9 0"></path></svg>
+          </span>
+        </div>
         <span>Perfiles por familia</span>
+      </div>
+    </div>
+
+    <div class="pricing-block">
+      <div class="pricing-head">
+        <h2>Planes de lanzamiento</h2>
+        <p>Pago anual = pagas 10 meses, no 12.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="price-card">
+          <span class="price-badge soft">Gratis</span>
+          <div class="price-title">B&aacute;sico</div>
+          <div class="price-line">
+            <strong>CLP 0</strong>
+            <span>para empezar</span>
+          </div>
+          <p class="price-note">Ideal para probar Klinip y ordenar tu informaci&oacute;n principal.</p>
+          <ul class="price-list">
+            <li><strong>1 perfil</strong> de salud</li>
+            <li>Recordatorios y documentos esenciales</li>
+            <li>Acceso inicial a la app</li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <span class="price-badge">Precio de lanzamiento</span>
+          <div class="price-title">Plus</div>
+          <div class="price-line">
+            <strong>CLP 4.990</strong>
+            <span>mensual</span>
+          </div>
+          <div class="price-line">
+            <strong>CLP 49.900</strong>
+            <span>anual</span>
+          </div>
+          <p class="price-note">Luego <strong>CLP 6.990/mes</strong> o <strong>CLP 69.900/a&ntilde;o</strong>.</p>
+          <ul class="price-list">
+            <li><strong>IA Klinip</strong> y res&uacute;menes simples</li>
+            <li><strong>Klinip Voice</strong> para consultas</li>
+            <li>Organizaci&oacute;n personal completa</li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <span class="price-badge">Precio de lanzamiento</span>
+          <div class="price-title">Familiar</div>
+          <div class="price-line">
+            <strong>CLP 8.990</strong>
+            <span>mensual</span>
+          </div>
+          <div class="price-line">
+            <strong>CLP 89.900</strong>
+            <span>anual</span>
+          </div>
+          <p class="price-note">Luego <strong>CLP 11.990/mes</strong> o <strong>CLP 119.900/a&ntilde;o</strong>.</p>
+          <ul class="price-list">
+            <li><strong>Hasta 5 perfiles</strong> por familia</li>
+            <li>Compartido familiar autorizado</li>
+            <li>Seguimiento con <strong>Klinip Feed</strong></li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <span class="price-badge neutral">Empresas</span>
+          <div class="price-title">Centros y equipos</div>
+          <div class="price-line">
+            <strong>Cotizar</strong>
+            <span>plan a medida</span>
+          </div>
+          <p class="price-note">Para CESFAM, hospitales, cl&iacute;nicas y equipos de atenci&oacute;n.</p>
+          <ul class="price-list">
+            <li>Planes por volumen y roles</li>
+            <li>Administraci&oacute;n y seguimiento centralizado</li>
+            <li>Implementaci&oacute;n seg&uacute;n necesidad</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
@@ -994,7 +1298,8 @@ body.theme-dark .field input.error {
         <p>Te notificaremos cuando Klinip est&eacute; listo para ti. Revisa tu correo para confirmar.</p>
         <div class="success-tag">
           <svg viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
-          Posici&oacute;n <span id="success-position-text">#1</span> en la lista
+          <strong id="success-position-text">#1</strong>
+          <span>Tu posici&oacute;n en la lista</span>
         </div>
       </div>
     </div>
@@ -1002,7 +1307,7 @@ body.theme-dark .field input.error {
 </main>
 
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHkFK9P6zhG7TWP20y6CntBSQKvaPf2nbZKs9v_JvUkz03zDp5j1u5Lx1tsWbOmy2x/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoWAr0-FQXAQgsIg-py9zlh1HeuqdXUM9Mz4KH0X0P53lpnaUg9G581ZqcIjNIK2GY/exec";
 const PREMIUM_SLOT_LIMIT = 100;
 
 const prefersDark =
@@ -1019,6 +1324,7 @@ const submitButton = document.getElementById("submit");
 const formStatus = document.getElementById("form-status");
 const formBody = document.getElementById("form-body");
 const successState = document.getElementById("success");
+const socialProof = document.getElementById("social-proof");
 const socialTotal = document.getElementById("social-total");
 const metaTotal = document.getElementById("meta-total");
 const metaRemaining = document.getElementById("meta-remaining");
@@ -1067,35 +1373,79 @@ function renderStats(totalLeads, premiumSlotLimit = currentPremiumSlotLimit) {
       ? premiumSlotLimit
       : currentPremiumSlotLimit;
   const remaining = Math.max(currentPremiumSlotLimit - currentLeadCount, 0);
+  const peopleLabel = currentLeadCount === 1 ? "persona" : "personas";
 
-  socialTotal.textContent = `${currentLeadCount} personas`;
+  socialTotal.textContent = `${currentLeadCount} ${peopleLabel}`;
   metaTotal.textContent = String(currentLeadCount);
   metaRemaining.textContent = String(remaining);
   badgeTotal.textContent = String(currentLeadCount);
   badgeRemaining.textContent = String(remaining);
   successPositionText.textContent = `#${currentLeadCount + 1}`;
+  socialProof.classList.toggle("show", currentLeadCount > 0);
 }
 
 function loadStats() {
-  const callbackName = `klinipWaitlistStats_${Date.now()}`;
+  fetchJsonp(`${APPS_SCRIPT_URL}?action=stats`)
+    .then((payload) => {
+      const leads = Number(payload?.total_leads);
+      const slotLimit = Number(payload?.premium_slot_limit);
+      renderStats(leads, slotLimit);
+    })
+    .catch(() => {
+      // Keep fallback counters if stats are unavailable.
+    });
+}
 
-  window[callbackName] = (payload) => {
-    const leads = Number(payload?.total_leads);
-    const slotLimit = Number(payload?.premium_slot_limit);
-    renderStats(leads, slotLimit);
-    cleanup();
-  };
+function fetchJsonp(baseUrl) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `klinipJsonp_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+    const script = document.createElement("script");
+    const separator = baseUrl.includes("?") ? "&" : "?";
 
-  const cleanup = () => {
-    delete window[callbackName];
-    script.remove();
-  };
+    const cleanup = () => {
+      delete window[callbackName];
+      script.remove();
+    };
 
-  const script = document.createElement("script");
-  script.src = `${APPS_SCRIPT_URL}?action=stats&callback=${callbackName}`;
-  script.async = true;
-  script.onerror = cleanup;
-  document.body.appendChild(script);
+    window[callbackName] = (payload) => {
+      cleanup();
+      resolve(payload);
+    };
+
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("No se pudo cargar la respuesta."));
+    };
+
+    script.src = `${baseUrl}${separator}callback=${callbackName}`;
+    script.async = true;
+    document.body.appendChild(script);
+  });
+}
+
+async function confirmLeadSaved(email) {
+  const normalizedEmail = encodeURIComponent(email.trim());
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    await new Promise((resolve) => setTimeout(resolve, attempt === 0 ? 1200 : 900));
+
+    try {
+      const payload = await fetchJsonp(`${APPS_SCRIPT_URL}?action=lookup&email=${normalizedEmail}`);
+      if (payload?.exists) {
+        const freshStats = await fetchJsonp(`${APPS_SCRIPT_URL}?action=stats`);
+        return {
+          exists: true,
+          position: payload.position,
+          totalLeads: Number(freshStats?.total_leads),
+          slotLimit: Number(freshStats?.premium_slot_limit),
+        };
+      }
+    } catch (error) {
+      // Retry while propagation settles.
+    }
+  }
+
+  return { exists: false };
 }
 
 function resetValidation() {
@@ -1155,20 +1505,32 @@ async function handleSubmit() {
   setStatus("Guardando tu registro...", "");
 
   try {
+    const formPayload = new URLSearchParams(payload);
+
     await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       headers: {
-        "Content-Type": "text/plain;charset=utf-8",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: JSON.stringify(payload),
+      body: formPayload.toString(),
     });
 
+    setStatus("Confirmando tu registro...", "");
+    const confirmation = await confirmLeadSaved(email);
+
+    if (!confirmation.exists) {
+      throw new Error("No se pudo confirmar el registro.");
+    }
+
     formBody.style.display = "none";
-    renderStats(currentLeadCount + 1);
+    renderStats(confirmation.totalLeads, confirmation.slotLimit);
+    if (confirmation.position) {
+      successPositionText.textContent = `#${confirmation.position}`;
+    }
     successState.classList.add("show");
   } catch (error) {
-    setStatus("No pudimos guardar tu registro. Intenta nuevamente en unos minutos.", "error");
+    setStatus("No pudimos confirmar tu registro en la hoja. Intenta nuevamente en unos minutos.", "error");
     submitButton.disabled = false;
     submitButton.innerHTML = submitIcon(false) + "Unirme a la lista de espera";
   }

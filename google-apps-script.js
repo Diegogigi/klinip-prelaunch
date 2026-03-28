@@ -22,13 +22,61 @@ function getStatsPayload_(sheet) {
   };
 }
 
+function parseLeadPayload_(e) {
+  if (e.postData && e.postData.contents) {
+    try {
+      return JSON.parse(e.postData.contents);
+    } catch (error) {
+      // Fallback to form-style payload below.
+    }
+  }
+
+  return {
+    nombre: e.parameter.nombre || "",
+    apellido: e.parameter.apellido || "",
+    email: e.parameter.email || "",
+    telefono: e.parameter.telefono || "",
+    como_gestiona: e.parameter.como_gestiona || "",
+    tipo_uso: e.parameter.tipo_uso || "",
+  };
+}
+
+function getLeadLookupPayload_(sheet, email) {
+  const normalizedEmail = String(email || "").trim().toLowerCase();
+  if (!normalizedEmail) {
+    return { ok: false, exists: false };
+  }
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) {
+    return { ok: true, exists: false };
+  }
+
+  const emailValues = sheet.getRange(2, 4, lastRow - 1, 1).getValues();
+  let position = null;
+
+  for (let index = emailValues.length - 1; index >= 0; index -= 1) {
+    const rowEmail = String(emailValues[index][0] || "").trim().toLowerCase();
+    if (rowEmail === normalizedEmail) {
+      position = index + 1;
+      break;
+    }
+  }
+
+  return {
+    ok: true,
+    exists: position !== null,
+    position: position,
+  };
+}
+
 function doPost(e) {
   try {
     const sheet = SpreadsheetApp
       .openById("1LtSmuuMAWRjZbtXj8_bD5RiemVXZfUO7bjpHOaSPXZ8")
       .getSheetByName("Leads");
 
-    const data = JSON.parse(e.postData.contents);
+    const data = parseLeadPayload_(e);
     appendLeadRow_(sheet, data);
 
     return ContentService
@@ -47,7 +95,10 @@ function doGet(e) {
       .openById("1LtSmuuMAWRjZbtXj8_bD5RiemVXZfUO7bjpHOaSPXZ8")
       .getSheetByName("Leads");
 
-    const stats = getStatsPayload_(sheet);
+    const action = e.parameter.action || "stats";
+    const stats = action === "lookup"
+      ? getLeadLookupPayload_(sheet, e.parameter.email)
+      : getStatsPayload_(sheet);
     const callback = e.parameter.callback;
 
     if (callback) {
