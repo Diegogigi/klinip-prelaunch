@@ -1,502 +1,653 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    />
-    <title>Klinip | Acceso anticipado</title>
-    <meta
-      name="description"
-      content="Klinip organiza tu salud y la de tu familia con IA, documentos, recordatorios y Klinip Voice. &Uacute;nete a la lista de espera o reserva acceso anticipado."
-    />
-    <meta name="theme-color" content="#eff5ff" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="lp-page">
-      <header class="lp-navbar">
-        <div class="lp-navbar-inner">
-          <a class="lp-nav-logo" href="#inicio" aria-label="Klinip">
-            <span class="lp-nav-logo-mark">K</span>
-            <span class="lp-nav-logo-name">Klinip</span>
-          </a>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Klinip - Lista de espera</title>
+<meta
+  name="description"
+  content="Klinip organiza tu salud con IA, recordatorios, documentos y seguimiento familiar. Únete a la lista de espera."
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 
-          <nav class="lp-nav-links" aria-label="Principal">
-            <button type="button" class="lp-nav-link active" data-scroll-target="beneficios">Beneficios</button>
-            <button type="button" class="lp-nav-link" data-scroll-target="planes">Planes</button>
-            <button type="button" class="lp-nav-link" data-scroll-target="empresas">Empresas</button>
-            <button type="button" class="lp-nav-link" data-scroll-target="faq">FAQ</button>
-          </nav>
+:root{
+  --blue:#2563EB;
+  --blue-dark:#1d4ed8;
+  --blue-light:#EEF3FD;
+  --blue-bd:#C3D4FA;
+  --green:#16A34A;
+  --green-light:#EDFAF2;
+  --green-bd:#BBF0D2;
+  --border:#E8E6DF;
+  --ink:#1C1C1E;
+  --ink2:#4A4A52;
+  --muted:#8A8A8E;
+  --bg:#FAFAF8;
+  --surface:#FFFFFF;
+  --surface-soft:#F7F7F4;
+}
 
-          <div class="lp-nav-right">
-            <button
-              type="button"
-              class="theme-toggle lp-theme-toggle"
-              data-theme-toggle
-              aria-label="Cambiar tema"
-              aria-pressed="false"
-            >
-              <span class="theme-toggle-label">Tema</span>
-              <span class="theme-switch"><span class="theme-switch-thumb"></span></span>
-            </button>
-            <a class="lp-btn-ghost" data-app-link href="https://www.klinip.cl">Ir a la app</a>
-          </div>
-        </div>
-      </header>
+body.theme-dark{
+  --border:#2B3446;
+  --ink:#F4F7FF;
+  --ink2:#CDD6EA;
+  --muted:#9CA6BE;
+  --bg:#0F172A;
+  --surface:#111B30;
+  --surface-soft:#172238;
+  --blue-light:rgba(37,99,235,.14);
+  --blue-bd:rgba(96,165,250,.25);
+  --green-light:rgba(22,163,74,.14);
+  --green-bd:rgba(34,197,94,.22);
+}
 
-      <section id="inicio" class="lp-hero">
-        <div class="lp-hero-inner">
-          <div class="lp-hero-left">
-            <div class="lp-section-eyebrow">Acceso anticipado Klinip</div>
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background .2s ease,color .2s ease;
+}
 
-            <h1 class="lp-hero-title">
-              Ordena la salud
-              <span>de tu familia en un solo lugar</span>
-            </h1>
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
 
-            <p class="lp-hero-desc">
-              Klinip re&uacute;ne recordatorios, documentos, seguimiento familiar y
-              <strong>Klinip Voice</strong> para convertir cada atenci&oacute;n en informaci&oacute;n
-              clara y accionable.
-            </p>
+.bg-orb1,.bg-orb2{
+  position:fixed;border-radius:50%;pointer-events:none;z-index:0;
+}
+.bg-orb1{
+  top:-120px;right:-120px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(99,102,241,.08),transparent);
+}
+.bg-orb2{
+  bottom:-100px;left:-80px;width:380px;height:380px;
+  background:radial-gradient(circle,rgba(37,99,235,.06),transparent);
+}
 
-            <div class="lp-hero-actions">
-              <a class="lp-btn-hero" data-waitlist-link href="#lista-espera">Unirme a la lista de espera</a>
-              <a class="lp-btn-secondary" data-payment-link href="#planes">Reservar acceso anticipado</a>
-            </div>
+.page{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  max-width:1200px;
+  margin:0 auto;
+  padding:40px 40px 0;
+  gap:80px;
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
 
-            <div class="lp-hero-stats">
-              <div class="lp-hero-stat">
-                <strong>Klinip Voice</strong>
-                <span>Resumen en lenguaje simple</span>
-              </div>
-              <div class="lp-hero-stat">
-                <strong>Compartido familiar</strong>
-                <span>Permisos y contexto por perfil</span>
-              </div>
-              <div class="lp-hero-stat">
-                <strong>Recordatorios</strong>
-                <span>Citas, ex&aacute;menes y medicamentos</span>
-              </div>
-            </div>
-          </div>
+.left,.right{padding:64px 0}
 
-          <div class="lp-hero-right">
-            <div class="lp-hero-mockup">
-              <div class="lp-mockup-bar">
-                <span class="lp-mockup-tag is-voice">Klinip Voice</span>
-                <span class="lp-mockup-tag is-new">Nuevo</span>
-              </div>
+.brand-text{
+  display:inline-block;
+  margin-bottom:20px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-.04em;
+  color:var(--blue);
+  animation:fadeUp .5s ease both .02s;
+}
 
-              <div class="lp-mockup-body">
-                <h2>Tu consulta, explicada en simple.</h2>
-                <p>
-                  Convierte una atenci&oacute;n m&eacute;dica en un resumen entendible,
-                  indicaciones &uacute;tiles y opciones seguras para compartir con familia
-                  autorizada.
-                </p>
-              </div>
-            </div>
+.left-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 14px 5px 8px;border-radius:999px;
+  background:var(--blue-light);border:1px solid var(--blue-bd);color:var(--blue);
+  margin-bottom:22px;
+  animation:fadeUp .5s ease both .05s;
+}
+.pill-dot{
+  width:18px;height:18px;border-radius:50%;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+}
+.pill-dot svg{width:9px;height:9px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 
-            <div class="lp-feature-grid lp-feature-grid-compact">
-              <article class="lp-feature-card">
-                <h3>IA cl&iacute;nica</h3>
-                <p>Detecta hitos, alertas y seguimientos.</p>
-              </article>
-              <article class="lp-feature-card">
-                <h3>Documentos</h3>
-                <p>Resultados, recetas y &oacute;rdenes en un mismo historial.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
+.left-h1,.left-h2{
+  font-family:'Lora',serif;
+  font-size:50px;line-height:1.05;letter-spacing:-.03em;
+}
+.left-h1{
+  color:var(--ink);margin-bottom:8px;
+  animation:fadeUp .5s ease both .1s;
+}
+.left-h2{
+  color:var(--blue);margin-bottom:22px;font-style:italic;
+  animation:fadeUp .5s ease both .14s;
+}
+.left-desc{
+  font-size:16px;color:var(--ink2);font-weight:300;
+  line-height:1.7;margin-bottom:36px;max-width:420px;
+  animation:fadeUp .5s ease both .18s;
+}
+.left-desc strong{font-weight:700;color:var(--ink)}
 
-      <section id="beneficios" class="lp-section lp-section-surface">
-        <div class="lp-section-inner">
-          <div class="lp-section-eyebrow"><span></span>Beneficios<span></span></div>
-          <h2 class="lp-section-title">
-            La misma base de Klinip,
-            <em>ahora lista para acceso anticipado</em>
-          </h2>
-          <p class="lp-section-sub">
-            Una salida controlada para conocer el producto, dejar tus datos o reservar un cupo antes del lanzamiento amplio.
-          </p>
+.left-checks{
+  display:flex;flex-direction:column;gap:10px;
+  margin-bottom:36px;
+  animation:fadeUp .5s ease both .22s;
+}
+.lc-item{display:flex;align-items:center;gap:10px}
+.lc-check{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:var(--green-light);border:1px solid var(--green-bd);
+  display:flex;align-items:center;justify-content:center;
+}
+.lc-check svg{width:10px;height:10px;fill:none;stroke:var(--green);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.lc-text{font-size:14px;font-weight:500;color:var(--ink2)}
+.lc-text strong{color:var(--ink);font-weight:700}
 
-          <div class="lp-feature-grid">
-            <article class="lp-feature-card">
-              <div class="lp-feature-line tone-blue"></div>
-              <div class="lp-feature-icon tone-blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="M12 8v4"></path>
-                  <circle cx="12" cy="16" r=".6" fill="currentColor"></circle>
-                </svg>
-              </div>
-              <h3>Klinip IA</h3>
-              <p>Resuelve dudas sobre historial, tratamientos y documentos con lenguaje claro.</p>
-            </article>
+.social-row{
+  display:flex;align-items:center;gap:10px;
+  margin-top:14px;
+  animation:fadeUp .5s ease both .3s;
+}
+.social-avatars{display:flex}
+.social-av{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--surface);
+  margin-left:-8px;font-size:10px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.social-av:first-child{margin-left:0}
+.social-text{font-size:12.5px;color:var(--muted);font-weight:300}
+.social-text strong{color:var(--ink);font-weight:700}
 
-            <article class="lp-feature-card">
-              <div class="lp-feature-line tone-teal"></div>
-              <div class="lp-feature-icon tone-teal">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M12 3a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4Z"></path>
-                  <path d="M5 11a7 7 0 0 0 14 0"></path>
-                  <path d="M12 18v3"></path>
-                </svg>
-              </div>
-              <h3>Klinip Voice</h3>
-              <p>Registra una atenci&oacute;n y convi&eacute;rtela en resumen &uacute;til para paciente y familia.</p>
-            </article>
+.left-stats{
+  display:flex;gap:0;
+  margin-top:28px;
+  animation:fadeUp .5s ease both .26s;
+}
+.ls{padding:0 20px;border-right:1px solid var(--border)}
+.ls:first-child{padding-left:0}
+.ls:last-child{border-right:none}
+.ls-num{font-family:'Lora',serif;font-size:26px;color:var(--blue);letter-spacing:-.02em}
+.ls-label{font-size:11.5px;color:var(--muted);margin-top:2px}
 
-            <article class="lp-feature-card">
-              <div class="lp-feature-line tone-amber"></div>
-              <div class="lp-feature-icon tone-amber">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M4 6h16v12H4z"></path>
-                  <path d="M8 3v6"></path>
-                  <path d="M16 3v6"></path>
-                </svg>
-              </div>
-              <h3>Calendario y recordatorios</h3>
-              <p>Centraliza citas, ex&aacute;menes y medicamentos para no perder seguimiento.</p>
-            </article>
+.right{display:flex;align-items:center;justify-content:center}
 
-            <article class="lp-feature-card">
-              <div class="lp-feature-line tone-violet"></div>
-              <div class="lp-feature-icon tone-violet">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M7 20a4 4 0 1 1 0-8 5 5 0 0 1 10 0 4 4 0 1 1 0 8Z"></path>
-                </svg>
-              </div>
-              <h3>Compartido familiar</h3>
-              <p>Permisos por perfil y visibilidad controlada para cuidadores y familia autorizada.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+.form-card{
+  width:100%;max-width:440px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.04),
+    0 16px 48px rgba(0,0,0,.08);
+  animation:fadeUp .5s ease both .2s;
+  position:relative;
+}
 
-      <section id="lista-espera" class="lp-section lp-section-surface">
-        <div class="lp-section-inner">
-          <div class="lp-section-eyebrow"><span></span>Lista de espera<span></span></div>
-          <h2 class="lp-section-title">
-            Cu&eacute;ntanos c&oacute;mo
-            <em>usar&iacute;as Klinip</em>
-          </h2>
-          <p class="lp-section-sub">
-            Este formulario nos ayuda a entender tu contexto, priorizar mejor el acceso anticipado y resaltar las capacidades de Klinip que m&aacute;s te sirven.
-          </p>
+.form-accent{
+  height:3px;
+  background:linear-gradient(90deg,#2563EB,#6366F1,#0D9488);
+}
 
-          <div class="lp-lead-grid">
-            <div class="lp-lead-copy">
-              <div class="lp-lead-points">
-                <article class="lp-lead-point">
-                  <h3>Segmentaci&oacute;n real</h3>
-                  <p>Detectamos si buscas Klinip para uso personal, familiar o institucional.</p>
-                </article>
-                <article class="lp-lead-point">
-                  <h3>Dolor principal</h3>
-                  <p>Sabemos si tu problema hoy es ordenar documentos, entender indicaciones o coordinar a la familia.</p>
-                </article>
-                <article class="lp-lead-point">
-                  <h3>Inter&eacute;s por funciones</h3>
-                  <p>Priorizamos mejor si te atrae m&aacute;s Klinip Voice, IA cl&iacute;nica, recordatorios o compartido familiar.</p>
-                </article>
-              </div>
-            </div>
+.form-header{
+  padding:28px 28px 0;
+  margin-bottom:24px;
+}
+.fh-eyebrow{
+  font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:8px;
+  display:flex;align-items:center;gap:7px;
+}
+.fh-eyebrow span{width:16px;height:1px;background:var(--blue);display:inline-block}
+.fh-title{
+  font-family:'Lora',serif;font-size:24px;color:var(--ink);
+  letter-spacing:-.02em;line-height:1.15;margin-bottom:5px;
+}
+.fh-title em{font-style:italic;color:var(--blue)}
+.fh-sub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.55}
 
-            <form class="lp-lead-form" data-waitlist-form novalidate>
-              <div class="lp-form-grid">
-                <label class="lp-form-field">
-                  <span>Nombre</span>
-                  <input type="text" name="nombre" autocomplete="name" placeholder="Tu nombre" required />
-                </label>
+.fh-counter{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:700;
+  padding:4px 12px 4px 8px;border-radius:999px;
+  background:var(--blue-light);border:1px solid var(--blue-bd);color:var(--blue);
+  margin-top:12px;
+}
+.counter-live{width:7px;height:7px;border-radius:50%;background:#16A34A;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-                <label class="lp-form-field">
-                  <span>Correo</span>
-                  <input type="email" name="correo" autocomplete="email" placeholder="tu@correo.com" required />
-                </label>
+.form-divider{height:1px;background:var(--border);margin:0 28px}
+.form-body{padding:24px 28px}
 
-                <label class="lp-form-field">
-                  <span>WhatsApp</span>
-                  <input type="tel" name="whatsapp" autocomplete="tel" placeholder="+56 9 ..." />
-                </label>
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field:last-of-type{margin-bottom:0}
+.field-label{
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted);
+}
+.field-input,.field-select{
+  width:100%;padding:11px 14px;
+  border-radius:11px;border:1.5px solid var(--border);
+  background:var(--surface-soft);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;color:var(--ink);
+  outline:none;transition:border-color .15s,background .15s,box-shadow .15s;
+}
+.field-input:focus,.field-select:focus{
+  border-color:var(--blue-bd);
+  background:var(--surface);
+  box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+.field-input::placeholder{color:#B7B7B1}
+.field-input.error{border-color:#FBC8C8;background:#FEF0F0}
+.field-error{font-size:11px;color:#DC2626;font-weight:500;display:none}
+.field-error.show{display:block}
 
-                <label class="lp-form-field">
-                  <span>&iquest;Para qui&eacute;n usar&iacute;as Klinip?</span>
-                  <select name="uso_principal" required>
-                    <option value="">Selecciona una opci&oacute;n</option>
-                    <option value="personal">Para m&iacute;</option>
-                    <option value="familiar">Para mi familia</option>
-                    <option value="cuidador">Para alguien que cuido</option>
-                    <option value="empresa">Para un centro o equipo</option>
-                  </select>
-                </label>
+.field-select{
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8A8E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
+}
 
-                <label class="lp-form-field">
-                  <span>&iquest;C&oacute;mo administras hoy tu informaci&oacute;n de salud?</span>
-                  <select name="gestion_actual" required>
-                    <option value="">Selecciona una opci&oacute;n</option>
-                    <option value="papel">Papel o cuadernos</option>
-                    <option value="whatsapp">WhatsApp</option>
-                    <option value="archivos">Archivos sueltos</option>
-                    <option value="notas">Calendario, notas o recordatorios</option>
-                    <option value="desordenado">No la tengo ordenada</option>
-                  </select>
-                </label>
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 
-                <label class="lp-form-field">
-                  <span>&iquest;Qu&eacute; te cuesta m&aacute;s hoy?</span>
-                  <select name="dolor_principal" required>
-                    <option value="">Selecciona una opci&oacute;n</option>
-                    <option value="recordatorios">Recordar controles, medicamentos o ex&aacute;menes</option>
-                    <option value="documentos">Ordenar documentos</option>
-                    <option value="indicaciones">Entender indicaciones m&eacute;dicas</option>
-                    <option value="familia">Compartir con familia o cuidadores</option>
-                    <option value="seguimiento">Hacer seguimiento de varias personas</option>
-                  </select>
-                </label>
+.tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tipo-opt{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px;border-radius:10px;
+  border:1.5px solid var(--border);background:var(--surface-soft);
+  cursor:pointer;transition:border-color .15s,background .15s;
+  user-select:none;
+}
+.tipo-opt:hover{border-color:var(--blue-bd);background:var(--blue-light)}
+.tipo-opt.selected{border-color:var(--blue);background:var(--blue-light)}
+.tipo-radio{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s;
+}
+.tipo-opt.selected .tipo-radio{border-color:var(--blue)}
+.tipo-radio-inner{width:8px;height:8px;border-radius:50%;background:var(--blue);opacity:0;transition:opacity .15s}
+.tipo-opt.selected .tipo-radio-inner{opacity:1}
+.tipo-icon{
+  width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
+  color:var(--blue);
+}
+.tipo-icon svg{
+  width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.tipo-label{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.tipo-opt.selected .tipo-label{color:var(--blue)}
 
-                <label class="lp-form-field">
-                  <span>&iquest;Qu&eacute; funci&oacute;n te interesa m&aacute;s?</span>
-                  <select name="funcion_interes" required>
-                    <option value="">Selecciona una opci&oacute;n</option>
-                    <option value="voice">Klinip Voice</option>
-                    <option value="recordatorios">Recordatorios</option>
-                    <option value="documentos">Documentos cl&iacute;nicos</option>
-                    <option value="familia">Compartido familiar</option>
-                    <option value="ia">IA para entender mi salud</option>
-                  </select>
-                </label>
+.consent-row{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:14px;border-radius:11px;
+  background:var(--surface-soft);border:1px solid var(--border);
+  margin-top:14px;cursor:pointer;transition:border-color .15s;
+}
+.consent-row:hover{border-color:var(--blue-bd)}
+.consent-check{
+  width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;
+  border:1.5px solid var(--border);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,background .15s;
+}
+.consent-row.checked .consent-check{border-color:var(--blue);background:var(--blue)}
+.consent-check svg{width:10px;height:10px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.consent-row.checked .consent-check svg{opacity:1}
+.consent-text{font-size:12px;color:var(--muted);line-height:1.5;font-weight:300}
+.consent-text a{color:var(--blue);font-weight:600}
 
-                <label class="lp-form-field">
-                  <span>&iquest;Qu&eacute; plan te interesa m&aacute;s?</span>
-                  <select name="plan_interes" required>
-                    <option value="">Selecciona una opci&oacute;n</option>
-                    <option value="gratis">Gratis</option>
-                    <option value="plus">Plus lanzamiento</option>
-                    <option value="familiar">Familiar lanzamiento</option>
-                    <option value="empresa">Empresas / demo comercial</option>
-                  </select>
-                </label>
+.btn-submit{
+  width:100%;margin-top:16px;
+  padding:14px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,#2563EB,#6366F1);
+  color:#fff;font-size:15px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 6px 20px rgba(37,99,235,.3);
+  transition:box-shadow .15s,transform .1s;
+  position:relative;overflow:hidden;
+}
+.btn-submit:hover{box-shadow:0 10px 28px rgba(37,99,235,.4);transform:translateY(-1px)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.btn-submit::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);
+  transform:translateX(-100%);
+}
+.btn-submit:hover::after{animation:shimmer .6s ease forwards}
+@keyframes shimmer{to{transform:translateX(100%)}}
 
-                <label class="lp-form-field lp-form-field-full">
-                  <span>&iquest;Hay algo que te gustar&iacute;a resolver con Klinip?</span>
-                  <textarea
-                    name="mensaje"
-                    rows="4"
-                    placeholder="Cu&eacute;ntanos brevemente tu caso o lo que hoy te cuesta ordenar."
-                  ></textarea>
-                </label>
-              </div>
+.form-footnote{
+  font-size:11.5px;color:var(--muted);text-align:center;
+  margin-top:10px;line-height:1.5;font-weight:300;
+}
 
-              <label class="lp-form-check">
-                <input type="checkbox" name="contacto_autorizado" required />
-                <span>Acepto que Klinip me contacte por correo o WhatsApp sobre acceso anticipado.</span>
-              </label>
+.success-state{
+  display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 28px;text-align:center;
+}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--green-light);border:2px solid var(--green-bd);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  animation:popIn .4s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.success-icon svg,.success-position svg{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.success-icon svg{width:28px;height:28px;color:var(--green)}
+.success-h{font-family:'Lora',serif;font-size:24px;color:var(--ink);letter-spacing:-.02em;margin-bottom:8px}
+.success-h em{font-style:italic;color:var(--green)}
+.success-sub{font-size:14px;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:20px;max-width:300px}
+.success-position{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;padding:8px 18px;border-radius:999px;
+  background:var(--green-light);color:var(--green);border:1px solid var(--green-bd);
+}
+.success-position svg{width:16px;height:16px}
+.success-share{
+  margin-top:20px;padding-top:20px;border-top:1px solid var(--border);
+  width:100%;text-align:center;
+}
+.ss-label{font-size:11.5px;color:var(--muted);margin-bottom:10px;font-weight:500}
+.ss-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ss-btn{
+  font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;
+  border:1.5px solid var(--border);background:var(--surface-soft);color:var(--ink2);
+  cursor:pointer;transition:background .15s,border-color .15s,color .15s;
+  display:flex;align-items:center;gap:6px;
+}
+.ss-btn:hover{background:var(--surface);border-color:#bbb;color:var(--ink)}
 
-              <div class="lp-form-actions">
-                <button class="lp-btn-hero lp-form-submit" type="submit">Quiero entrar a la lista de espera</button>
-                <p class="lp-form-note">Klinip prioriza mejor el acceso anticipado seg&uacute;n tu uso, inter&eacute;s y contexto.</p>
-              </div>
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-              <p class="lp-form-status" data-form-status aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-      </section>
+@media(max-width:800px){
+  .page{grid-template-columns:1fr;gap:0;padding:24px 24px 0}
+  .left{padding:40px 0 24px}
+  .left-h1,.left-h2{font-size:38px}
+  .right{padding:0 0 48px}
+  .form-card{max-width:100%}
+  .brand-text{font-size:24px;margin-bottom:16px}
+}
 
-      <section id="planes" class="lp-pricing-section">
-        <div class="lp-section-inner">
-          <div class="lp-section-eyebrow"><span></span>Acceso anticipado<span></span></div>
-          <h2 class="lp-section-title">
-            Elige tu plan de
-            <em>prelaunch Klinip</em>
-          </h2>
-          <p class="lp-section-sub">
-            El acceso anticipado combina precio de lanzamiento, entrada controlada y activaci&oacute;n manual para mantener una salida ordenada.
-          </p>
+@media(max-width:520px){
+  .field-row,.tipo-grid{grid-template-columns:1fr}
+  .left-stats{flex-wrap:wrap;gap:12px}
+  .ls{padding:0;border-right:none}
+}
+</style>
+</head>
+<body>
 
-          <div class="lp-pricing-note">
-            <strong>Prelaunch:</strong> precio de lanzamiento por tiempo limitado.
-            <span>Luego sube a precio normal al abrir el lanzamiento comercial.</span>
-          </div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
 
-          <div class="lp-pricing-grid lp-pricing-grid-four">
-            <article class="lp-price-card">
-              <div class="lp-price-plan">Gratis</div>
-              <div class="lp-price-amount is-free">Gratis</div>
-              <div class="lp-price-period">1 perfil de salud</div>
-              <div class="lp-price-subtitle">
-                Ideal para conocer Klinip, probar la base del producto y entrar sin fricci&oacute;n.
-              </div>
-              <div class="lp-price-divider"></div>
-              <ul class="lp-price-features">
-                <li><span class="lp-price-check"></span> 1 perfil de salud</li>
-                <li><span class="lp-price-check"></span> Recordatorios y documentos esenciales</li>
-                <li><span class="lp-price-check"></span> Historial b&aacute;sico</li>
-                <li><span class="lp-price-check"></span> Klinip Voice demo o uso muy limitado</li>
-              </ul>
-              <div class="lp-price-meta">Sin pago. Entrada por lista de espera.</div>
-              <a class="lp-price-btn-primary" data-waitlist-link href="#lista-espera">Solicitar acceso gratis</a>
-            </article>
-
-            <article class="lp-price-card is-featured">
-              <span class="lp-price-rec">Precio de lanzamiento</span>
-              <div class="lp-price-plan">Klinip Plus</div>
-              <div class="lp-price-amount">CLP 4.990</div>
-              <div class="lp-price-period">mensual o CLP 49.900/a&ntilde;o</div>
-              <div class="lp-price-subtitle">
-                Para organizar tu salud con IA, Klinip Voice y una experiencia completa para una sola persona.
-              </div>
-              <div class="lp-price-divider"></div>
-              <ul class="lp-price-features">
-                <li><span class="lp-price-check"></span> 1 perfil principal</li>
-                <li><span class="lp-price-check"></span> Res&uacute;menes con IA y lenguaje simple</li>
-                <li><span class="lp-price-check"></span> Klinip Voice con uso razonable</li>
-                <li><span class="lp-price-check"></span> Precio normal luego: CLP 6.990/mes o 69.900/a&ntilde;o</li>
-              </ul>
-              <div class="lp-price-meta">Precio promocional no transferible durante esta etapa.</div>
-              <a class="lp-price-btn-primary" data-plus-link href="#">Reservar Plus lanzamiento</a>
-            </article>
-
-            <article class="lp-price-card">
-              <span class="lp-price-rec lp-price-rec-soft">Precio de lanzamiento</span>
-              <div class="lp-price-plan">Klinip Familiar</div>
-              <div class="lp-price-amount">CLP 11.990</div>
-              <div class="lp-price-period">mensual o CLP 119.900/a&ntilde;o</div>
-              <div class="lp-price-subtitle">
-                Para familias, cuidadores y hogares que necesitan ordenar varios perfiles en un mismo lugar.
-              </div>
-              <div class="lp-price-divider"></div>
-              <ul class="lp-price-features">
-                <li><span class="lp-price-check"></span> Hasta 5 perfiles de salud</li>
-                <li><span class="lp-price-check"></span> Compartido familiar autorizado</li>
-                <li><span class="lp-price-check"></span> Audio + resumen simple compartido</li>
-                <li><span class="lp-price-check"></span> Precio normal luego: CLP 14.990/mes o 149.900/a&ntilde;o</li>
-              </ul>
-              <div class="lp-price-meta">Automatizaci&oacute;n por perfil incluida.</div>
-              <a class="lp-price-btn-primary" data-family-link href="#">Reservar Familiar lanzamiento</a>
-            </article>
-
-            <article id="empresas" class="lp-price-card">
-              <span class="lp-price-rec lp-price-rec-business">B2B</span>
-              <div class="lp-price-plan">Empresas y centros</div>
-              <div class="lp-price-amount">Cotizaci&oacute;n</div>
-              <div class="lp-price-period">CESFAM, hospitales, cl&iacute;nicas y centros</div>
-              <div class="lp-price-subtitle">
-                Para instituciones que necesitan administraci&oacute;n, m&uacute;ltiples profesionales y operaci&oacute;n con mayor control.
-              </div>
-              <div class="lp-price-divider"></div>
-              <ul class="lp-price-features">
-                <li><span class="lp-price-check"></span> Panel administrador y reportes</li>
-                <li><span class="lp-price-check"></span> Roles, permisos y operaci&oacute;n por equipo</li>
-                <li><span class="lp-price-check"></span> Onboarding y acompa&ntilde;amiento comercial</li>
-                <li><span class="lp-price-check"></span> Alcance, precio y soporte a medida</li>
-              </ul>
-              <div class="lp-price-meta">Evaluaci&oacute;n comercial seg&uacute;n volumen y flujo.</div>
-              <a class="lp-price-btn-ghost" data-enterprise-link href="#">Solicitar demo comercial</a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="lp-section lp-section-surface">
-        <div class="lp-section-inner">
-          <div class="lp-section-eyebrow"><span></span>Reglas de plan<span></span></div>
-          <h2 class="lp-section-title">
-            L&iacute;mites claros para una
-            <em>salida ordenada y sana</em>
-          </h2>
-          <p class="lp-section-sub">
-            El prelaunch mantiene activaci&oacute;n controlada para evitar abuso, proteger capacidad operativa y asegurar que cada plan se use como corresponde.
-          </p>
-
-          <div class="lp-feature-grid lp-rules-grid">
-            <article class="lp-feature-card">
-              <h3>Gratis</h3>
-              <p>1 perfil y acceso base. Sin automatizaciones ni compartido familiar avanzado.</p>
-            </article>
-            <article class="lp-feature-card">
-              <h3>Plus</h3>
-              <p>Experiencia premium individual. No reemplaza al plan Familiar ni habilita m&uacute;ltiples perfiles completos.</p>
-            </article>
-            <article class="lp-feature-card">
-              <h3>Familiar</h3>
-              <p>Hasta 5 perfiles, permisos por perfil y compartido solo con integrantes autorizados.</p>
-            </article>
-            <article class="lp-feature-card">
-              <h3>Lanzamiento</h3>
-              <p>Precio no transferible, no acumulable y v&aacute;lido solo dentro de la ventana de prelaunch.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq" class="lp-cta-section">
-        <div class="lp-cta-inner">
-          <div class="lp-cta-eyebrow">Preguntas frecuentes</div>
-          <h2>Lo importante antes de <em>entrar a Klinip</em></h2>
-          <div class="lp-faq-list">
-            <details>
-              <summary>&iquest;La app ya est&aacute; abierta a todo p&uacute;blico?</summary>
-              <p>No. Esta etapa es de pre-lanzamiento, lista de espera y acceso anticipado controlado.</p>
-            </details>
-            <details>
-              <summary>&iquest;Klinip Voice reemplaza al profesional?</summary>
-              <p>No. Ayuda a registrar y explicar mejor una atenci&oacute;n, pero no reemplaza indicaci&oacute;n m&eacute;dica.</p>
-            </details>
-            <details>
-              <summary>&iquest;La familia ve todo autom&aacute;ticamente?</summary>
-              <p>No. El usuario define permisos y puede compartir solo con familiares autorizados.</p>
-            </details>
-            <details>
-              <summary>&iquest;Qu&eacute; pasa con el precio de lanzamiento cuando termine el prelaunch?</summary>
-              <p>Los nuevos ingresos pasar&aacute;n al precio normal. El precio de lanzamiento aplica solo al acceso reservado dentro de esta etapa.</p>
-            </details>
-            <details>
-              <summary>&iquest;Tienen opci&oacute;n para centros de salud o empresas?</summary>
-              <p>S&iacute;. Klinip Empresas se cotiza aparte para CESFAM, hospitales, cl&iacute;nicas y centros particulares.</p>
-            </details>
-            <details>
-              <summary>&iquest;D&oacute;nde pido una demo o escribo por soporte?</summary>
-              <p>Puedes usar los accesos configurables de WhatsApp o correo incluidos en esta landing.</p>
-            </details>
-          </div>
-          <div class="lp-cta-actions">
-            <a class="lp-cta-btn" data-waitlist-link href="#lista-espera">Unirme a la lista de espera</a>
-            <a class="lp-btn-secondary" data-payment-link href="#">Reservar acceso</a>
-          </div>
-        </div>
-      </section>
-
-      <footer class="lp-footer">
-        <div class="lp-footer-inner">
-          <div class="lp-footer-brand">
-            <div>
-              <strong>Klinip</strong>
-              <span>Tu ruta de salud, simplificada</span>
-            </div>
-          </div>
-          <div class="lp-footer-links">
-            <a data-whatsapp-link href="#">WhatsApp</a>
-            <a data-email-link href="#">Correo</a>
-            <a data-app-link href="https://www.klinip.cl">App actual</a>
-          </div>
-        </div>
-      </footer>
+<div class="page">
+  <div class="left">
+    <div class="brand-text">Klinip</div>
+    <div class="left-pill">
+      <div class="pill-dot">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l2.5 2.5"></path></svg>
+      </div>
+      Lanzamiento próximo
     </div>
 
-    <script src="./config.js"></script>
-    <script src="./script.js"></script>
-  </body>
+    <div class="left-h1">Tu salud,</div>
+    <div class="left-h2">organizada con IA</div>
+
+    <p class="left-desc">
+      Klinip es tu compañero digital de salud. Organiza tus <strong>citas médicas</strong>, gestiona tu <strong>medicación</strong>, almacena <strong>documentos</strong> importantes y mantén un <strong>historial completo</strong> con IA que te ayuda a no olvidar nada.
+    </p>
+
+    <div class="left-checks">
+      <div class="lc-item">
+        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="lc-text"><strong>Acceso anticipado</strong> antes del lanzamiento oficial</span>
+      </div>
+      <div class="lc-item">
+        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="lc-text"><strong>Precio de lanzamiento</strong> para los primeros cupos</span>
+      </div>
+      <div class="lc-item">
+        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="lc-text"><strong>Influye en el producto</strong> con tu feedback directo al equipo</span>
+      </div>
+      <div class="lc-item">
+        <div class="lc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="lc-text"><strong>Sin costo</strong> para entrar a la lista de espera</span>
+      </div>
+    </div>
+
+    <div class="social-row">
+      <div class="social-avatars">
+        <div class="social-av" style="background:linear-gradient(135deg,#3B82F6,#6366F1)">M</div>
+        <div class="social-av" style="background:linear-gradient(135deg,#16A34A,#0D9488)">C</div>
+        <div class="social-av" style="background:linear-gradient(135deg,#D97706,#DC2626)">R</div>
+        <div class="social-av" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">P</div>
+      </div>
+      <div class="social-text">
+        <strong>+240 personas</strong> ya están en la lista
+      </div>
+    </div>
+
+    <div class="left-stats">
+      <div class="ls"><div class="ls-num">100%</div><div class="ls-label">Gratis para empezar</div></div>
+      <div class="ls"><div class="ls-num">IA</div><div class="ls-label">Copiloto de salud</div></div>
+      <div class="ls"><div class="ls-num">5</div><div class="ls-label">Perfiles por familia</div></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="form-card" id="form-card">
+      <div class="form-accent"></div>
+
+      <div class="form-header">
+        <div class="fh-eyebrow"><span></span>Lista de espera</div>
+        <div class="fh-title">Reserva tu<br><em>lugar hoy</em></div>
+        <p class="fh-sub">Sé de los primeros en usar Klinip y obtén beneficios exclusivos de lanzamiento.</p>
+        <div class="fh-counter">
+          <div class="counter-live"></div>
+          <span>241 personas en lista · quedan <strong>59 lugares</strong> premium</span>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <div class="form-body" id="form-body">
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">Nombre</label>
+            <input class="field-input" id="f-nombre" type="text" placeholder="Tu nombre"/>
+            <span class="field-error" id="err-nombre">Ingresa tu nombre</span>
+          </div>
+          <div class="field">
+            <label class="field-label">Apellido</label>
+            <input class="field-input" id="f-apellido" type="text" placeholder="Tu apellido"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Correo electrónico</label>
+          <input class="field-input" id="f-email" type="email" placeholder="tucorreo@gmail.com"/>
+          <span class="field-error" id="err-email">Ingresa un correo válido</span>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Teléfono <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:#B7B7B1">(opcional)</span></label>
+          <input class="field-input" id="f-tel" type="tel" placeholder="+56 9 1234 5678"/>
+        </div>
+
+        <div class="field" style="margin-bottom:14px">
+          <label class="field-label">¿Cómo gestionas tu salud hoy?</label>
+          <select class="field-select" id="f-como">
+            <option value="">Selecciona una opción</option>
+            <option>Libretas o papel</option>
+            <option>WhatsApp o fotos del celular</option>
+            <option>Carpetas físicas</option>
+            <option>Otra app (Notion, Excel, etc.)</option>
+            <option>No tengo un sistema</option>
+          </select>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <label class="field-label">¿Quién usará Klinip?</label>
+          <div class="tipo-grid" id="tipo-grid">
+            <div class="tipo-opt selected" onclick="selectTipo(this)">
+              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span class="tipo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 19.5a6 6 0 0 1 12 0"/></svg>
+              </span>
+              <span class="tipo-label">Solo yo</span>
+            </div>
+            <div class="tipo-opt" onclick="selectTipo(this)">
+              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span class="tipo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.5"/><circle cx="16" cy="9" r="2.5"/><path d="M3.5 19a4.5 4.5 0 0 1 9 0"/><path d="M11.5 19a4.5 4.5 0 0 1 9 0"/></svg>
+              </span>
+              <span class="tipo-label">Mi familia</span>
+            </div>
+            <div class="tipo-opt" onclick="selectTipo(this)">
+              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span class="tipo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><g transform="rotate(-35 12 12)"><rect x="5" y="8" width="14" height="8" rx="4"/><path d="M5 12a4 4 0 0 1 4-4h3v8H9a4 4 0 0 1-4-4z" fill="currentColor" stroke="none"/><path d="M12 8v8"/></g></svg>
+              </span>
+              <span class="tipo-label">Cuido a alguien</span>
+            </div>
+            <div class="tipo-opt" onclick="selectTipo(this)">
+              <div class="tipo-radio"><div class="tipo-radio-inner"></div></div>
+              <span class="tipo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 3.5h7l3 3.5V20a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5z"/><path d="M14 3.5v4h3"/><path d="M9 12h6M9 15h6M9 9h2"/></svg>
+              </span>
+              <span class="tipo-label">Soy profesional</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="consent-row" id="consent-row" onclick="toggleConsent()">
+          <div class="consent-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="consent-text">
+            Acepto recibir novedades de Klinip por correo. Puedes darte de baja en cualquier momento. Consulta nuestra <a href="#">política de privacidad</a>.
+          </div>
+        </div>
+
+        <button class="btn-submit" id="btn-submit" onclick="handleSubmit()">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Unirme a la lista de espera
+        </button>
+
+        <p class="form-footnote">Sin spam. Sin tarjeta de crédito. Te avisamos cuando lancemos.</p>
+      </div>
+
+      <div class="success-state" id="success-state">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-h">¡Estás en la <em>lista!</em></div>
+        <p class="success-sub">Te notificaremos cuando Klinip esté listo para ti. Revisa tu correo para confirmar.</p>
+        <div class="success-position">
+          <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+          Posición #242 en la lista
+        </div>
+        <div class="success-share">
+          <div class="ss-label">Comparte Klinip y sube en la lista</div>
+          <div class="ss-btns">
+            <button class="ss-btn" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+              Twitter/X
+            </button>
+            <button class="ss-btn" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/></svg>
+              WhatsApp
+            </button>
+            <button class="ss-btn" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const storageKey = "klinip_waitlist_theme";
+
+function applyTheme(theme) {
+  document.body.classList.toggle("theme-dark", theme === "dark");
+  localStorage.setItem(storageKey, theme);
+}
+
+function selectTipo(el) {
+  document.querySelectorAll('.tipo-opt').forEach((o) => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+let consented = false;
+function toggleConsent() {
+  consented = !consented;
+  document.getElementById('consent-row').classList.toggle('checked', consented);
+}
+
+function handleSubmit() {
+  let valid = true;
+
+  const nombre = document.getElementById('f-nombre');
+  const email = document.getElementById('f-email');
+  const errNombre = document.getElementById('err-nombre');
+  const errEmail = document.getElementById('err-email');
+
+  nombre.classList.remove('error');
+  email.classList.remove('error');
+  errNombre.classList.remove('show');
+  errEmail.classList.remove('show');
+
+  if (!nombre.value.trim()) {
+    nombre.classList.add('error');
+    errNombre.classList.add('show');
+    valid = false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value.trim())) {
+    email.classList.add('error');
+    errEmail.classList.add('show');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  const btn = document.getElementById('btn-submit');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Procesando...';
+  btn.style.opacity = '.8';
+  btn.style.pointerEvents = 'none';
+
+  setTimeout(() => {
+    document.getElementById('form-body').style.display = 'none';
+    const successState = document.getElementById('success-state');
+    successState.style.display = 'flex';
+    successState.style.animation = 'fadeUp .5s ease both';
+  }, 1200);
+}
+
+const savedTheme = localStorage.getItem(storageKey);
+if (savedTheme === 'dark' || savedTheme === 'light') {
+  applyTheme(savedTheme);
+}
+
+const style = document.createElement('style');
+style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+document.head.appendChild(style);
+</script>
+</body>
 </html>
