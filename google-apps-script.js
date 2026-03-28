@@ -12,7 +12,7 @@ function appendLeadRow_(sheet, data) {
 
 function getStatsPayload_(sheet) {
   const totalRows = Math.max(sheet.getLastRow() - 1, 0);
-  const premiumSlotLimit = 300;
+  const premiumSlotLimit = 100;
 
   return {
     ok: true,

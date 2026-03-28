@@ -862,16 +862,16 @@ body.theme-dark .field input.error {
         <span style="background:linear-gradient(135deg,#d97706,#dc2626)">R</span>
         <span style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">P</span>
       </div>
-      <div class="social-text"><strong id="social-total">240 personas</strong> ya est&aacute;n en la lista</div>
+      <div class="social-text"><strong id="social-total">0 personas</strong> ya est&aacute;n en la lista</div>
     </div>
 
     <div class="meta-row">
       <div class="meta-card">
-        <strong id="meta-total">240</strong>
+        <strong id="meta-total">0</strong>
         <span>Personas interesadas</span>
       </div>
       <div class="meta-card">
-        <strong id="meta-remaining">60</strong>
+        <strong id="meta-remaining">100</strong>
         <span>Cupos premium restantes</span>
       </div>
       <div class="meta-card">
@@ -891,7 +891,7 @@ body.theme-dark .field input.error {
         <p>S&eacute; de los primeros en usar Klinip y obt&eacute;n beneficios exclusivos de lanzamiento.</p>
         <div class="status-badge">
           <span class="live-dot"></span>
-          <span><span id="badge-total">240</span> personas en lista &middot; quedan <strong id="badge-remaining">60</strong> lugares premium</span>
+          <span><span id="badge-total">0</span> personas en lista &middot; quedan <strong id="badge-remaining">100</strong> lugares premium</span>
         </div>
       </div>
 
@@ -994,7 +994,7 @@ body.theme-dark .field input.error {
         <p>Te notificaremos cuando Klinip est&eacute; listo para ti. Revisa tu correo para confirmar.</p>
         <div class="success-tag">
           <svg viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
-          Posici&oacute;n <span id="success-position-text">#241</span> en la lista
+          Posici&oacute;n <span id="success-position-text">#1</span> en la lista
         </div>
       </div>
     </div>
@@ -1003,7 +1003,7 @@ body.theme-dark .field input.error {
 
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHkFK9P6zhG7TWP20y6CntBSQKvaPf2nbZKs9v_JvUkz03zDp5j1u5Lx1tsWbOmy2x/exec";
-const PREMIUM_SLOT_LIMIT = 300;
+const PREMIUM_SLOT_LIMIT = 100;
 
 const prefersDark =
   window.matchMedia &&
@@ -1026,7 +1026,8 @@ const badgeTotal = document.getElementById("badge-total");
 const badgeRemaining = document.getElementById("badge-remaining");
 const successPositionText = document.getElementById("success-position-text");
 let consentChecked = false;
-let currentLeadCount = 240;
+let currentLeadCount = 0;
+let currentPremiumSlotLimit = PREMIUM_SLOT_LIMIT;
 
 tipoButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -1059,9 +1060,13 @@ function setStatus(message, tone) {
   }
 }
 
-function renderStats(totalLeads) {
+function renderStats(totalLeads, premiumSlotLimit = currentPremiumSlotLimit) {
   currentLeadCount = Number.isFinite(totalLeads) && totalLeads >= 0 ? totalLeads : currentLeadCount;
-  const remaining = Math.max(PREMIUM_SLOT_LIMIT - currentLeadCount, 0);
+  currentPremiumSlotLimit =
+    Number.isFinite(premiumSlotLimit) && premiumSlotLimit >= 0
+      ? premiumSlotLimit
+      : currentPremiumSlotLimit;
+  const remaining = Math.max(currentPremiumSlotLimit - currentLeadCount, 0);
 
   socialTotal.textContent = `${currentLeadCount} personas`;
   metaTotal.textContent = String(currentLeadCount);
@@ -1076,7 +1081,8 @@ function loadStats() {
 
   window[callbackName] = (payload) => {
     const leads = Number(payload?.total_leads);
-    renderStats(leads);
+    const slotLimit = Number(payload?.premium_slot_limit);
+    renderStats(leads, slotLimit);
     cleanup();
   };
 
